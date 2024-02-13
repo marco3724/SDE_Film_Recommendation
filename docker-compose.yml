@@ -1,9 +1,30 @@
 version: "3.8"
 services:
+
+
+
+  auth_db_adapter:
+    build: ./adapter_layer/auth_db_interface
+    restart: always
+    environment:
+      - AUTH_ADAPTER_PORT
+      - MYSQL_DATABASE
+      - MYSQL_USER
+      - MYSQL_PASSWORD
+    ports:
+      - ${AUTH_ADAPTER_PORT}:${AUTH_ADAPTER_PORT}
+    expose:
+      - ${AUTH_ADAPTER_PORT}
+    depends_on: 
+      - database
   
   database:
     image: mysql:8.3
     restart: always
     environment:
+      - MYSQL_DATABASE
+      - MYSQL_USER
+      - MYSQL_PASSWORD
+      - MYSQL_ROOT_PASSWORD
     expose:
-    volumes:
+      - ${AUTH_DB_PORT}
