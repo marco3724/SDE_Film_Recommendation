@@ -1,0 +1,9 @@
+version: "3.8"
+services:
+  
+  database:
+    image: mysql:8.3
+    restart: always
+    environment:
+    expose:
+    volumes:
