@@ -1,8 +1,21 @@
 version: "3.8"
 services:
 
+  # Business Layer
+  login_business:
+    build: ./business_logic_layer
+    restart: always
+    environment:
+      - AUTH_ADAPTER_PORT
+      - LOGIN_BUSINESS_PORT
+    ports:
+      - ${LOGIN_BUSINESS_PORT}:${LOGIN_BUSINESS_PORT}
+    expose:
+      - ${LOGIN_BUSINESS_PORT}
+    depends_on:
+      - auth_db_adapter
 
-
+  # Adapter Layer
   auth_db_adapter:
     build: ./adapter_layer/auth_db_interface
     restart: always
