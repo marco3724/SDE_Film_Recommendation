@@ -3,7 +3,7 @@ services:
 
   # Business Layer
   login_business:
-    build: ./business_logic_layer
+    build: ./business_logic_layer/login
     restart: always
     environment:
       - AUTH_ADAPTER_PORT
