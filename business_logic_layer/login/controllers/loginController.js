@@ -6,6 +6,7 @@ const AUTH_DB_ADAPTER_ENDPOINT = `http://auth_db_adapter:${process.env.AUTH_ADAP
 
 exports.login = async (request, response) => {
     const {email, password} = request.body;
+    let user;
 
     if (!email || !password) {
         return response.status(400).send({
@@ -24,11 +25,21 @@ exports.login = async (request, response) => {
                 headers: {'Content-Type' : 'application/json'}
             });
 
-            const data = await res.json();
+            user = await res.json();
         } catch (error) {
             return response.status(400).send({
                 message: "Oops something went wrong :("
             });
+        }
+
+        if (!user) {
+            return response.status(400).send({
+                message: "Oops something went wrong :(, user not found"
+            });
+        } else {
+            return response.status(200).send({
+                message: "user found"
+            }); 
         }
     }
 };
