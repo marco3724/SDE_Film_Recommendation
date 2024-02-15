@@ -15,6 +15,19 @@ services:
     depends_on:
       - auth_db_adapter
 
+  registration_business:
+    build: ./business_logic_layer/registration
+    restart: always
+    environment:
+      - AUTH_ADAPTER_PORT
+      - REGISTRATION_BUSINESS_PORT
+    ports:
+      - ${REGISTRATION_BUSINESS_PORT}:${REGISTRATION_BUSINESS_PORT}
+    expose:
+      - ${REGISTRATION_BUSINESS_PORT}
+    depends_on:
+      - auth_db_adapter
+
   # Adapter Layer
   auth_db_adapter:
     build: ./adapter_layer/auth_db_interface
