@@ -32,6 +32,8 @@ services:
   auth_db_adapter:
     build: ./adapter_layer/auth_db_interface
     restart: always
+    env_file:
+      - ./.env
     environment:
       - AUTH_ADAPTER_PORT
       - MYSQL_DATABASE
@@ -47,6 +49,8 @@ services:
   database:
     image: mysql:8.3
     restart: always
+    env_file:
+      - ./.env
     environment:
       - MYSQL_DATABASE
       - MYSQL_USER
@@ -54,3 +58,23 @@ services:
       - MYSQL_ROOT_PASSWORD
     expose:
       - ${AUTH_DB_PORT}
+
+  imdb_detail_adapter:
+    build: ./adapter_layer/imdb_detail_api
+    restart: always
+    env_file:
+      - ./.env
+    ports:
+      - ${IMDB_ADAPTER_PORT}:${IMDB_ADAPTER_PORT}
+    expose:
+      - ${IMDB_ADAPTER_PORT}
+
+  tmdb_detail_adapter:
+    build: ./adapter_layer/tmdb_detail_api
+    restart: always
+    env_file:
+      - ./.env
+    ports:
+      - ${TMDB_ADAPTER_PORT}:${TMDB_ADAPTER_PORT}
+    expose:
+      - ${TMDB_ADAPTER_PORT}
