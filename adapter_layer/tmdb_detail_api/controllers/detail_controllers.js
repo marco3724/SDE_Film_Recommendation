@@ -7,7 +7,7 @@ exports.getDetails = async (req, res) => {
     url: `https://api.themoviedb.org/3/movie/${filmID}`,
     headers: {
         accept: 'application/json',
-        Authorization: process.env.TMDB_AUTHORIZATION
+        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0YmY0ODkyNTAwM2U3OWI3ZjhhYzFjNzlkNDkzNWNlNiIsInN1YiI6IjYyM2YzMmJiYzYxNmFjMDA0Nzc5MWM3NSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.juuccecra3Tn695-P7vijBiEMgA1PFU39cCQ1k-kYqc'
       }
   };
 
