@@ -24,6 +24,7 @@ services:
     environment:
       - AUTH_ADAPTER_PORT
       - LOGIN_BUSINESS_PORT
+      - JWT_SECRET
     ports:
       - ${LOGIN_BUSINESS_PORT}:${LOGIN_BUSINESS_PORT}
     expose:
