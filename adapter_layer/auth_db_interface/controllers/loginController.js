@@ -17,7 +17,13 @@ exports.login = async (request, response) => {
 
         // probably not good
         if (providedHashedPassword === foundExistingUser.password) {
-            return response.status(200).send({ message: "Succesfully logged in"});
+            return response.status(200).json({ 
+                message: "Succesfully logged in",
+                user_data: {
+                    userName: foundExistingUser.userName,
+                    email: foundExistingUser.email
+                }
+            });
         } else {
             return response.status(500).send({ message: "Wrong email or password"});
         }
