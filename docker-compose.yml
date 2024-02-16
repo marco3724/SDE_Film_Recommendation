@@ -1,6 +1,22 @@
 version: "3.8"
 services:
 
+  # Process Layer
+  authentication:
+    build: ./process_centric_layer/authentication
+    restart: always
+    environment:
+      - AUTHENTICATION_PROCESS_PORT
+      - LOGIN_BUSINESS_PORT
+      - REGISTRATION_BUSINESS_PORT
+    ports:
+      - ${AUTHENTICATION_PROCESS_PORT}:${AUTHENTICATION_PROCESS_PORT}
+    expose:
+      - ${AUTHENTICATION_PROCESS_PORT}
+    depends_on:
+      - login_business
+      - registration_business
+
   # Business Layer
   login_business:
     build: ./business_logic_layer/login
@@ -32,8 +48,6 @@ services:
   auth_db_adapter:
     build: ./adapter_layer/auth_db_interface
     restart: always
-    env_file:
-      - ./.env
     environment:
       - AUTH_ADAPTER_PORT
       - MYSQL_DATABASE
@@ -49,8 +63,6 @@ services:
   database:
     image: mysql:8.3
     restart: always
-    env_file:
-      - ./.env
     environment:
       - MYSQL_DATABASE
       - MYSQL_USER
@@ -62,8 +74,9 @@ services:
   imdb_detail_adapter:
     build: ./adapter_layer/imdb_detail_api
     restart: always
-    env_file:
-      - ./.env
+    environment:
+      - IMDB_ADAPTER_PORT
+      - X_RAPIDAPI_KEY
     ports:
       - ${IMDB_ADAPTER_PORT}:${IMDB_ADAPTER_PORT}
     expose:
@@ -72,8 +85,9 @@ services:
   tmdb_detail_adapter:
     build: ./adapter_layer/tmdb_detail_api
     restart: always
-    env_file:
-      - ./.env
+    environment:
+      - TMDB_ADAPTER_PORT
+      - TMDB_AUTHORIZATION
     ports:
       - ${TMDB_ADAPTER_PORT}:${TMDB_ADAPTER_PORT}
     expose:
