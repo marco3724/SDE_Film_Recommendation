@@ -92,3 +92,13 @@ services:
       - ${TMDB_ADAPTER_PORT}:${TMDB_ADAPTER_PORT}
     expose:
       - ${TMDB_ADAPTER_PORT}
+
+  full_detail_business:
+    build: ./business_logic_layer/details
+    restart: always
+    environment:
+      - FULL_DETAIL_PORT
+    ports:
+      - ${FULL_DETAIL_PORT}:${FULL_DETAIL_PORT}
+    expose:
+      - ${FULL_DETAIL_PORT}
