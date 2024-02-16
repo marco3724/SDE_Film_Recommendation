@@ -1,0 +1,23 @@
+.container {
+    margin: auto auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.formEntries {
+    max-width: 720px;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    border: 1px solid gainsboro;
+    border-radius: 10px;
+}
+
+.entry {
+    display: flex;
+    flex-direction: column;
+}
