@@ -1,4 +1,5 @@
 const fetch = require("node-fetch");
+const jwt = require("jsonwebtoken");
 
 // ISSUE here, what if the service below does not start on
 // AUTH_ADAPTER_PORT but on 3001? then we are fuc...
@@ -37,9 +38,39 @@ exports.login = async (request, response) => {
                 message: "Oops something went wrong :(, user not found"
             });
         } else {
-            return response.status(200).send({
-                message: "user found"
+            const token = jwt.sign({
+                userName: user.user_data.userName,
+                email: user.user_data.email
+            }, process.env.JWT_SECRET);
+            return response.status(200).json({
+                status: "success",
+                message: "user found",
+                jwtToken: token
             }); 
         }
+    }
+};
+
+exports.verifyToken = async (request, response) => {
+    const {tkn} = request.body;
+
+    if (!tkn) {
+        return response.status(200).json({
+            status: "unsuccess",
+        });
+    }
+
+    try {
+        const decodedToken = jwt.verify(tkn, process.env.JWT_SECRET);
+        return response.status(200).json({
+            status: "success",
+            isAuthenticated: true,
+            plain_token: decodedToken
+        });
+    } catch (error) {
+        return response.status(200).json({
+            status: "success",
+            isAuthenticated: false
+        });
     }
 };
