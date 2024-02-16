@@ -16,8 +16,21 @@ exports.getDetails = async (req, res) => {
 
   try {
     const response = await axios.request(options);
-    //console.log(response.data);
-    return res.status(200).send(response.data);
+
+    const data = response.data
+    const detail ={
+      title: data.title.title,
+      type: data.title.titleType,
+      filmLenght: data.title.runningTimeInMinutes,
+      year: data.title.year,
+      rating: data.ratings.rating,
+      ratingCount: data.ratings.ratingCount,
+      genres: data.genres,
+      releaseDate: data.releaseDate,
+      plot: data.plotOutline.text
+    }
+    
+    return res.status(200).send(detail);
   } catch (error) {
       response = {
         "status": "error",

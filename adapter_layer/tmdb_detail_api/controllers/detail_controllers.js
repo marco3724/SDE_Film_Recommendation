@@ -12,9 +12,21 @@ exports.getDetails = async (req, res) => {
   };
 
   try {
-    const response = await axios.request(options);
-    //console.log(response.data);
-    return res.status(200).send(response.data);
+    const response = await axios.request(options)
+    
+    const data = response.data
+    const detail ={
+      id:data.imdb_overview,
+      title: data.original_title,
+      overview: data.overview,
+      revenue:data.revenue,
+      budget:data.budget,
+      rating: data.vote_average,
+      ratingCount:data.vote_count,
+      adult:data.adult,
+      genres:data.genres.map(x=>x.name),
+    }
+    return res.status(200).send(detail);
   } catch (error) {
       response = {
         "status": "error",
