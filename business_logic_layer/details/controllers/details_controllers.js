@@ -4,7 +4,7 @@ exports.getDetails = async (req, res) => {
 
   const filmID = req.query.filmID
   let detail1,detail2 = {}
-  let port = process.env.IMDB_ADAPTER_PORT || 3000;
+  let port = process.env.IMDB_DETAIL_PORT || 3000;
   let options = {
     method: 'GET',
     url: `http://imdb_detail_adapter:${port}/imdb_film/detail?filmID=${filmID}`,
@@ -24,7 +24,7 @@ exports.getDetails = async (req, res) => {
       return res.status(500).send(response);
 
   }
-  port = process.env.TMDB_ADAPTER_PORT || 3001;
+  port = process.env.TMDB_DETAIL_PORT || 3001;
   options = {
     method: 'GET',
     url: `http://tmdb_detail_adapter:${port}/tmdb_film/detail?filmID=${filmID}`,

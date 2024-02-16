@@ -31,6 +31,24 @@ services:
       - ${LOGIN_BUSINESS_PORT}
     depends_on:
       - auth_db_adapter
+  full_detail_business:
+    build: ./business_logic_layer/details
+    restart: always
+    environment:
+      - FULL_DETAIL_PORT
+    ports:
+      - ${FULL_DETAIL_PORT}:${FULL_DETAIL_PORT}
+    expose:
+      - ${FULL_DETAIL_PORT}
+  full_review_business:
+    build: ./business_logic_layer/reviews
+    restart: always
+    environment:
+      - FULL_REVIEW_PORT
+    ports:
+      - ${FULL_REVIEW_PORT}:${FULL_REVIEW_PORT}
+    expose:
+      - ${FULL_REVIEW_PORT}
 
   registration_business:
     build: ./business_logic_layer/registration
@@ -76,30 +94,41 @@ services:
     build: ./adapter_layer/imdb_detail_api
     restart: always
     environment:
-      - IMDB_ADAPTER_PORT
+      - IMDB_DETAIL_PORT
       - X_RAPIDAPI_KEY
     ports:
-      - ${IMDB_ADAPTER_PORT}:${IMDB_ADAPTER_PORT}
+      - ${IMDB_DETAIL_PORT}:${IMDB_DETAIL_PORT}
     expose:
-      - ${IMDB_ADAPTER_PORT}
+      - ${IMDB_DETAIL_PORT}
 
   tmdb_detail_adapter:
     build: ./adapter_layer/tmdb_detail_api
     restart: always
     environment:
-      - TMDB_ADAPTER_PORT
+      - TMDB_DETAIL_PORT
       - TMDB_AUTHORIZATION
     ports:
-      - ${TMDB_ADAPTER_PORT}:${TMDB_ADAPTER_PORT}
+      - ${TMDB_DETAIL_PORT}:${TMDB_DETAIL_PORT}
     expose:
-      - ${TMDB_ADAPTER_PORT}
-
-  full_detail_business:
-    build: ./business_logic_layer/details
+      - ${TMDB_DETAIL_PORT}
+  imdb_review_adapter:
+    build: ./adapter_layer/imdb_review_api
     restart: always
     environment:
-      - FULL_DETAIL_PORT
+      - IMDB_REVIEW_PORT
+      - X_RAPIDAPI_KEY
     ports:
-      - ${FULL_DETAIL_PORT}:${FULL_DETAIL_PORT}
+      - ${IMDB_REVIEW_PORT}:${IMDB_REVIEW_PORT}
     expose:
-      - ${FULL_DETAIL_PORT}
+      - ${IMDB_REVIEW_PORT}
+
+  tmdb_review_adapter:
+    build: ./adapter_layer/tmdb_review_api
+    restart: always
+    environment:
+      - TMDB_REVIEW_PORT
+      - TMDB_AUTHORIZATION
+    ports:
+      - ${TMDB_REVIEW_PORT}:${TMDB_REVIEW_PORT}
+    expose:
+      - ${TMDB_REVIEW_PORT}
