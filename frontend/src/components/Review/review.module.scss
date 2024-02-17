@@ -1,0 +1,29 @@
+.review{
+    margin-top: 3rem;
+
+}
+.header{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    align-items: center; 
+    .time{
+        color: #888a8b;
+    }
+    .rating{
+        color: #1e90ff;
+        font-weight: 700;
+        
+    }
+    span{
+        font-weight: 500;
+        color: #888a8b;
+    }
+
+}
+
+.author{
+    font-size: 1.5rem;
+    font-weight: 600;
+
+}
