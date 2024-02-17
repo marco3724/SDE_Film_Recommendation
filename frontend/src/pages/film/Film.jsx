@@ -1,7 +1,8 @@
 import { useParams } from 'react-router-dom';
 import { useEffect,useState } from 'react';  
 import styles from'./film.module.scss';
-
+import { FaStar } from 'react-icons/fa';
+import Review from '../../components/Review/Review';
 const object = {
   "title": "Harry Potter and the Philosopher's Stone",
   "type": "movie",
@@ -14,7 +15,11 @@ const object = {
       "Adventure",
       "Family",
       "Fantasy"
-  ],
+  ],  "productionCompanies": [
+    "Adventure",
+    "Family",
+    "Fantasy"
+],
   "releaseDate": "2001-11-16",
   "plot": "An orphaned boy enrolls in a school of wizardry, where he learns the truth about himself, his family and the terrible evil that haunts the magical world.",
   "overview": "Harry Potter has lived under the stairs at his aunt and uncle's house his whole life. But on his 11th birthday, he learns he's a powerful wizard—with a place waiting for him at the Hogwarts School of Witchcraft and Wizardry. As he learns to harness his newfound powers with the help of the school's kindly headmaster, Harry uncovers the truth about his parents' deaths—and about the villain who's to blame.",
@@ -218,35 +223,76 @@ function Film() {
     return (
         <div className={styles.container}>
           <div className={styles.info}>
-            <div className={styles.image}>
-              <img src={film.image} alt="film poster" />
+            <div className={styles.header}>
+                <div className={styles.left}>
+                    <div className = {styles.title}>{film.title}</div>
+                    <div className={styles.genres}>{film.genres.map(x=>x+'&')}</div>
+                </div>
+                <div className={styles.right}>
+                    <div className = {styles.rating}><FaStar /> {film.rating.toFixed(2)}<span className={styles.outOf}>/10</span></div>
+                </div>
             </div>
-            <div className={styles.details}>
-              <div className = {styles.title}>{film.title}</div>
-              <div className = {styles.year}>{film.year}</div>
-              <div className = {styles.rating}>{film.rating}</div>
-              <div className = {styles.plot}>{film.plot}</div>
-              <div className='overview'>{film.overview}</div>
-              <div className='genres'>{film.genres}</div>
-              <div className='releaseDate'>{film.releaseDate}</div>
-              <div className='revenue'>{film.revenue}</div>
-              <div className='budget'>{film.budget}</div>
-              <div className='adult'>{film.adult}</div>
-              <div className='filmLenght'>{film.filmLenght}</div>
-              <a href={film.homepage}>fff</a>
+            <div className={styles.body}>
+                <div className={styles.image}>
+                    <img src={film.image} alt="film poster" />
+                </div>
+                <div className={styles.details}>
+                    
+                    <div className = {styles.plot}>
+                        <div className={styles.plotTitle}>About the Movie</div>
+                        <div className={styles.text}>{film.overview}</div>
+                    </div>
+                    <div className={styles.otherInfo}>
+                        <div className={styles.otherInfoLeft}>
+                            <div className='releaseDate'>
+                                <div className={styles.fieldTitle}>Release Date</div>
+                                <div className={styles.fieldContent}>{film.releaseDate}</div>
+                            </div>
+                            <div className='revenue'>
+                                <div className={styles.fieldTitle}>Revenue</div>
+                                <div className={styles.fieldContent}>{film.revenue}$</div>
+
+                            </div>
+                            <div className='budget'>
+                                <div className={styles.fieldTitle}>Budget</div>
+                                <div className={styles.fieldContent}>{film.budget}$</div>
+                            </div>
+                            {/* <div className='adult'>
+                                <div className={styles.fieldTitle}>Adult</div>
+                                <div className={styles.fieldContent}>{film.adult}</div>
+                            </div> */}
+                            <div className = {styles.year}>
+                                <div className={styles.fieldTitle}>Year</div>
+                                <div className={styles.fieldContent}>{film.year}</div>
+                            </div>
+                            <div className='filmLenght'>
+                                <div className={styles.fieldTitle}>Duration</div>
+                                <div className={styles.fieldContent}>{film.filmLenght} minutes</div>
+                            </div>
+                        </div>
+                        <div className={styles.column}>
+                            <div className={styles.fieldTitle}>Production Company</div>
+                            <div className={styles.fieldContent}>{film.productionCompanies.map(x=><div>{x}</div>)}</div>
+                        </div>
+                        <div className={styles.column}>
+                            <div className={styles.fieldTitle}>Production Company</div>
+                            <div className={styles.fieldContent}>{film.productionCompanies.map(x=><div>{x}</div>)} </div>
+                        </div>
+                    </div>
+                    <div className={styles.homepage}>
+                        <a href={film.homepage} target='_blank'>
+                            Visit the website
+                        </a>
+                    </div>
+                </div>
             </div>
-            </div>
+          </div>
             <div className={styles.reviews}>
               <div className={styles.review}>
                 {
                   film.reviews.map((review, index) => {
                     return (
-                      <div key={index}>
-                        <div>Author: {review.author}</div>
-                        <div>Content: {review.content}</div>
-                        <div>Time: {review.time}</div>
-                        <div>Rating: {review.rating}</div>
-                      </div>
+                        <Review key={index} review={review} />
                     );
                   })
                 }

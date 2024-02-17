@@ -8,7 +8,7 @@ function SearchBar() {
   useEffect(() => {
     const handler = setTimeout(() => {
       setDebouncedValue(search);
-    }, 200); 
+    }, 400); 
 
     return () => {
       clearTimeout(handler);
