@@ -1,0 +1,9 @@
+.toggle{
+    text-decoration: underline;
+    color: #1e90ff;
+    display: inline;   
+    &:hover{
+        cursor: pointer;
+    } 
+
+}
