@@ -1,6 +1,6 @@
 import { useState,useEffect} from 'react';
 
-function SearchBar({searchFullFilmDetail}) {
+function SearchBar() {
   const [search, setSearch] = useState('')
   const [data, setData] = useState([]);
   const [debouncedValue, setDebouncedValue] = useState('');
@@ -8,7 +8,7 @@ function SearchBar({searchFullFilmDetail}) {
   useEffect(() => {
     const handler = setTimeout(() => {
       setDebouncedValue(search);
-    }, 500); 
+    }, 200); 
 
     return () => {
       clearTimeout(handler);
@@ -44,7 +44,7 @@ function SearchBar({searchFullFilmDetail}) {
       />
       <div>
         {data.map((item, index) => {
-          return <div key={index} onClick={()=>searchFullFilmDetail(item.id)}>{item.title}</div>
+          return <a href={`/film/${item.id}`} key={index} >{item.title}</a>
         })}
       </div>
     </div>

@@ -5,6 +5,7 @@ import {
 
 } from "react-router-dom";
 import AuthenticationPage from "./pages/authentication/AuthenticationPage";
+import Search from "./pages/search/Search";
 import Film from "./pages/film/Film";
 const router = createBrowserRouter([
   {
@@ -12,8 +13,15 @@ const router = createBrowserRouter([
     element: <AuthenticationPage/>,
   },  {
     path: "/",
+    element: <Search/>,
+  }, 
+  {
+    path: "/search",
+    element: <Search/>,
+  }, {
+    path: "film/:filmId",
     element: <Film/>,
-  }
+  },
 ]);
 
 function App() {
