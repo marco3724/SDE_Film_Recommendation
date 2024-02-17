@@ -21,6 +21,8 @@ services:
     restart: always
     environment:
       - FULL_OVERVIEW_PORT
+      - FULL_DETAIL_PORT
+      - FULL_REVIEW_PORT
     ports:
       - ${FULL_OVERVIEW_PORT}:${FULL_OVERVIEW_PORT}
     expose:
@@ -44,6 +46,8 @@ services:
     restart: always
     environment:
       - FULL_DETAIL_PORT
+      - IMDB_DETAIL_PORT
+      - TMDB_DETAIL_PORT
     ports:
       - ${FULL_DETAIL_PORT}:${FULL_DETAIL_PORT}
     expose:
@@ -53,6 +57,8 @@ services:
     restart: always
     environment:
       - FULL_REVIEW_PORT
+      - IMDB_REVIEW_PORT
+      - TMDB_REVIEW_PORT
     ports:
       - ${FULL_REVIEW_PORT}:${FULL_REVIEW_PORT}
     expose:
