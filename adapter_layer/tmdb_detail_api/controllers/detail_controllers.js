@@ -20,6 +20,7 @@ exports.getDetails = async (req, res) => {
       title: data.original_title,
       overview: data.overview,
       revenue:data.revenue,
+      homepage:data.homepage,
       budget:data.budget,
       rating: data.vote_average,
       ratingCount:data.vote_count,

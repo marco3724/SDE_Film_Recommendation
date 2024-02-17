@@ -21,6 +21,7 @@ exports.getDetails = async (req, res) => {
     const detail ={
       title: data.title.title,
       type: data.title.titleType,
+      image: data.title.image.url,
       filmLenght: data.title.runningTimeInMinutes,
       year: data.title.year,
       rating: data.ratings.rating,
