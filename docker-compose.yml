@@ -16,7 +16,15 @@ services:
     depends_on:
       - login_business
       - registration_business
-
+  overview:
+    build: ./process_centric_layer/full_film_overview
+    restart: always
+    environment:
+      - FULL_OVERVIEW_PORT
+    ports:
+      - ${FULL_OVERVIEW_PORT}:${FULL_OVERVIEW_PORT}
+    expose:
+      - ${FULL_OVERVIEW_PORT}
   # Business Layer
   login_business:
     build: ./business_logic_layer/login
