@@ -21,6 +21,7 @@ exports.getDetails = async (req, res) => {
       overview: data.overview,
       revenue:data.revenue,
       homepage:data.homepage,
+      productionCompanies: data.production_companies.map(x=>x.name),
       budget:data.budget,
       rating: data.vote_average,
       ratingCount:data.vote_count,

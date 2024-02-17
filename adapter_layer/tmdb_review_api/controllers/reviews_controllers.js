@@ -18,7 +18,7 @@ exports.getReviews = async (req, res) => {
       return {
         author: data.author,
         content: data.content,
-        time: data.created_at,
+        time: data.created_at.split("T")[0],
         rating: data.author_details.rating
       }
     })
