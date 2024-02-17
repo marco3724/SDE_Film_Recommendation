@@ -51,14 +51,22 @@ exports.getAutocomplete = async (req, res) => {
     url: 'https://imdb8.p.rapidapi.com/auto-complete',
     params: {q: searchTerm},
     headers: {
-      'X-RapidAPI-Key': process.env.X_RAPIDAPI_KEY,
+      'X-RapidAPI-Key':process.env.X_RAPIDAPI_KEY ,
       'X-RapidAPI-Host': 'imdb8.p.rapidapi.com'
     }
   };
   
   try {
     const response = await axios.request(options);
-    return res.status(200).send(response.data);
+    const final_response = response.data.d
+    .filter(data=>data.qid==="movie")
+    .map(data=>{
+      return {
+        id: data.id,
+        title: data.l,
+      }
+    })
+    return res.status(200).send(final_response);
   } catch (error) {
     response = {
       "status": "error",
