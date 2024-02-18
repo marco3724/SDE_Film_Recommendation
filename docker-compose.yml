@@ -77,6 +77,19 @@ services:
     depends_on:
       - auth_db_adapter
 
+  streaming_avaibility_business:
+   build: ./business_logic_layer/streaming_availability
+   restart: always
+   environment:
+     - STREAMING_AVAILABILITY_PORT
+     - TMDB_DETAIL_PORT
+     - AVAILABILITY_STREAMING_BUSINESS_PORT
+   ports:
+     - ${AVAILABILITY_STREAMING_BUSINESS_PORT}:${AVAILABILITY_STREAMING_BUSINESS_PORT}
+   expose:
+     - ${AVAILABILITY_STREAMING_BUSINESS_PORT}
+   depends_on:
+     - tmdb_detail_adapter
   # Adapter Layer
   auth_db_adapter:
     build: ./adapter_layer/auth_db_interface
@@ -148,6 +161,17 @@ services:
       - ${TMDB_REVIEW_PORT}:${TMDB_REVIEW_PORT}
     expose:
       - ${TMDB_REVIEW_PORT}
+  
+  streaming_availability_adapter:
+    build: ./adapter_layer/streaming_availability_api
+    restart: always
+    environment:
+      - STREAMING_AVAILABILITY_PORT
+      - X_RAPIDAPI_KEY
+    ports:
+      - ${STREAMING_AVAILABILITY_PORT}:${STREAMING_AVAILABILITY_PORT}
+    expose:
+      - ${STREAMING_AVAILABILITY_PORT}
 
 volumes:
   user-db
