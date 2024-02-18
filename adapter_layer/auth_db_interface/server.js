@@ -12,7 +12,7 @@ server.use('/register', registrationRouter);
 server.use('/login', loginRouter);
 
 try {
-    sequelize.sync({ force: true });
+    sequelize.sync();
 } catch (error) {
     console.error("Failing sync with db: ", error);
 }
