@@ -1,7 +1,10 @@
 const router = require("express").Router();
 const controller = require("../controllers/detail_controllers.js")
-// Gets forecast information about a given area
+
+// Gets information of a film from the imdb api
 router.get("/detail", controller.getDetails);
+
+// Gets the suggestion with the film that matches the search term
 router.get("/autocomplete", controller.getAutocomplete);
 
 //check the status of this microservices

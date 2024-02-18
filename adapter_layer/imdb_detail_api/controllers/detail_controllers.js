@@ -1,6 +1,7 @@
 const axios = require("axios")
 exports.getDetails = async (req, res) => {
   const filmID = req.query.filmID
+  //make the request
   const options = {
     method: 'GET',
     url: 'https://imdb8.p.rapidapi.com/title/get-overview-details',
@@ -17,6 +18,7 @@ exports.getDetails = async (req, res) => {
   try {
     const response = await axios.request(options);
 
+    //standardize the format of the data
     const data = response.data
     const detail ={
       title: data.title.title,
@@ -46,6 +48,7 @@ exports.getDetails = async (req, res) => {
 }
 
 exports.getAutocomplete = async (req, res) => {
+  //make the request
   const searchTerm = req.query.name
   const options = {
     method: 'GET',
@@ -59,6 +62,7 @@ exports.getAutocomplete = async (req, res) => {
   
   try {
     const response = await axios.request(options);
+    //standardize the format of the data
     const final_response = response.data.d
     .filter(data=>data.qid==="movie")
     .map(data=>{
