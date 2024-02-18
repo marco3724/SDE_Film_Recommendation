@@ -1,6 +1,7 @@
 const axios = require("axios")
 exports.getReviews = async (req, res) => {
   const filmID = req.query.filmID
+  //send the request
   const options = {
     method: 'GET',
     url: 'https://imdb8.p.rapidapi.com/title/get-user-reviews',
@@ -8,13 +9,14 @@ exports.getReviews = async (req, res) => {
       tconst: filmID
     },
     headers: {
-      'X-RapidAPI-Key': '39bbed41d0msh4f8fb277bd4cc7fp153229jsnc7926dfe9091',
+      'X-RapidAPI-Key': process.env.X_RAPIDAPI_KEY,
       'X-RapidAPI-Host': 'imdb8.p.rapidapi.com'
     }
   };
 
   try {
     const response = await axios.request(options)
+    //standardize the data
     const reviews =response.data?.reviews.map(rev=>{
       return {
         author: rev.author.displayName,
