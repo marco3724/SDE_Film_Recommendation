@@ -26,7 +26,8 @@ exports.register = async (request, response) => {
         let result = await res.json();
 
         if (result) {
-            return response.status(200).send({
+            return response.status(200).json({
+                status: "success",
                 message: "registration succesfull"
             });    
         } else {
