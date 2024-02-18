@@ -36,9 +36,11 @@ exports.loginProcedure = async (request, response) => {
     if (result.status == "success") {
         return response.cookie("token", result.jwtToken, {
             httpOnly: true,
-            sameSite: true,
-            secure: false // da settare a true? funziona anche con http?
-        }).status(200).json({ message: "Successfull login"});
+            //sameSite: true,
+        }).status(200).json({ 
+            status: "success",
+            message: "Successfull login"
+        });
     } else {
         console.log(result);
         return response.status(400).send({
