@@ -9,7 +9,7 @@ exports.getStreamingAv = async (req, res) => {
     imdb_id: filmID
     },
     headers: {
-      'X-RapidAPI-Key':'39bbed41d0msh4f8fb277bd4cc7fp153229jsnc7926dfe9091',
+      'X-RapidAPI-Key':process.env.X_RAPIDAPI_KEY,
       'X-RapidAPI-Host': 'streaming-availability.p.rapidapi.com'
     }
   };
@@ -17,11 +17,16 @@ exports.getStreamingAv = async (req, res) => {
   try {
     const response = await axios.request(options)
     console.log(response.data)
-    const availability =response.data?.result.streamingInfo.it.map(data=>{
-      return {
-        service: data.service,
-        streamingType:data.streamingType,
-        link:data.link
+    const availability =[]
+    const keys =[]
+    response.data?.result.streamingInfo.it.forEach(data=>{
+      if(!keys.includes(data.service)){
+        keys.push(data.service)
+        availability.push( {
+          service: data.service,
+          streamingType:data.streamingType,
+          link:data.link
+        })
       }
     })
     const final_response = {
