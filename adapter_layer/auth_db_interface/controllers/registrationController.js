@@ -10,7 +10,10 @@ exports.createUser = async (request, response) => {
     const foundExistingUser = await User.findByPk(userEmail);
 
     if (foundExistingUser) {
-        return response.status(500).send({ message: "Found an account with the same email"});
+        return response.status(500).json({ 
+            status: "same-email",
+            message: "Found an account with the same email"
+        });
     } else {
 
         if (!userEmail || !password) {
