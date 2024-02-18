@@ -1,10 +1,3 @@
-.container {
-    margin: auto auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
 .formEntries {
     max-width: 720px;
     padding: 40px;
