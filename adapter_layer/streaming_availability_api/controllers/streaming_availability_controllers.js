@@ -6,7 +6,7 @@ exports.getStreamingAv = async (req, res) => {
     url: 'https://streaming-availability.p.rapidapi.com/get',
     params: {
       output_language: 'en',
-    imdb_id: filmID
+      imdb_id: filmID
     },
     headers: {
       'X-RapidAPI-Key':process.env.X_RAPIDAPI_KEY,
@@ -16,7 +16,8 @@ exports.getStreamingAv = async (req, res) => {
 
   try {
     const response = await axios.request(options)
-    console.log(response.data)
+    
+    //standardize the data
     const availability =[]
     const keys =[]
     response.data?.result.streamingInfo.it.forEach(data=>{

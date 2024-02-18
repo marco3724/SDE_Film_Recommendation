@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const controller = require("../controllers/streaming_availability_controllers.js")
-// Gets reviews about a given film
+// Gets streaming availability about a given film
 router.get("/", controller.getStreamingAv);
 
 //check the status of this microservices
