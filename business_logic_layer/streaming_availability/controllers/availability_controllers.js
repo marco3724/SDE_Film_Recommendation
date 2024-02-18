@@ -3,7 +3,7 @@ exports.getDetails = async (req, res) => {
 
 
   const filmID = req.query.filmID
-  let detail1,detail2 = {}
+  //fetching the detail from the first provider
   let port = process.env.STREAMING_AVAILABILITY_PORT || 3005;
   let options = {
     method: 'GET',

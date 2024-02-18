@@ -3,7 +3,7 @@ exports.getDetails = async (req, res) => {
 
 
   const filmID = req.query.filmID
-  let detail1,detail2 = {}
+  const reviews = []
   let port = process.env.IMDB_REVIEW_PORT || 3002;
   let options = {
     method: 'GET',
@@ -13,7 +13,7 @@ exports.getDetails = async (req, res) => {
   try {
     const response = await axios.request(options);
     //console.log(response.data);
-    review1 = response.data
+    reviews.push(...response.data)
   } catch (error) {
       response = {
         "status": "error",
@@ -32,8 +32,8 @@ exports.getDetails = async (req, res) => {
 
   try {
     const response = await axios.request(options);
-    console.log(response.status)
-    review2 = response.data
+    //console.log(response.status)
+    reviews.push(response.data)
   } catch (error) {
       response = {
         "status": "error",
@@ -45,10 +45,6 @@ exports.getDetails = async (req, res) => {
 
   }
  
-  const full_detail= [
-    ...review1,
-    ...review2
-  ]
-  return res.status(200).send(full_detail);
+  return res.status(200).send(reviews);
      
 }
