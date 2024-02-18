@@ -103,6 +103,8 @@ services:
       - MYSQL_ROOT_PASSWORD
     expose:
       - ${AUTH_DB_PORT}
+    volumes:
+      - user-db:/var/lib/mysql
 
   imdb_detail_adapter:
     build: ./adapter_layer/imdb_detail_api
@@ -146,3 +148,6 @@ services:
       - ${TMDB_REVIEW_PORT}:${TMDB_REVIEW_PORT}
     expose:
       - ${TMDB_REVIEW_PORT}
+
+volumes:
+  user-db
