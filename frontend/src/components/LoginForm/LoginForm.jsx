@@ -1,43 +1,57 @@
 import { useState } from "react"
 import styles from './loginForm.module.css';
+import { useNavigate } from "react-router-dom";
 
 export default function LoginForm() {
-    const [formData, setFormData] = useState({
-        email: "",
-        password: ""
-    });
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const navigate = useNavigate();
+    const AUTH_PORT = 8003;
+    const AUTH_ENDPOINT = `http://localhost:${AUTH_PORT}/login`;
 
-    function handleInputChange(e) {
-        const {name, value} = e.target;
-
-        setFormData({
-            ...formData,
-            [name]: value
-        });
-    }
-
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault();
-        console.log(formData);
+        let credential = {
+            email: email,
+            password: password
+        };
+
+        const request = await fetch(AUTH_ENDPOINT, {
+            method: "POST",
+            body: JSON.stringify(credential),
+            headers: {"Content-Type" : "application/json"},
+            credentials: 'include'
+        });
+
+        const response = await request.json();
+        if (response.status == "success") {
+            navigate("/");
+        }
+
     }
 
     return (
-        <div className={styles.container}>
+        <div>
             <form onSubmit={handleSubmit}>
                 <div className={styles.formEntries}>
                     <div className={styles.entry}>
                         <span>Email</span>
                         <input 
                             type="email" 
-                            name="email" 
-                            onChange={handleInputChange}
+                            name="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                         />
                     </div>
 
                     <div className={styles.entry}>
                         <span>Password</span>
-                        <input type="password" name="password" />
-                        
+                        <input 
+                            type="password"
+                            name="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
                     </div>
 
                     <button type="submit">Login</button>
