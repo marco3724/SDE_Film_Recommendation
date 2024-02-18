@@ -8,7 +8,7 @@ router.get('/health', (req, res) => {
     let response = {
         "status": "ok",
         "code": 200,
-        "message": "Detail api is up and running"
+        "message": "streaming availability api is up and running"
       }
       res.status(200).send(response);
   });

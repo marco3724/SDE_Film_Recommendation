@@ -1,6 +1,8 @@
 const axios = require("axios")
 exports.getReviews = async (req, res) => {
   const filmID = req.query.filmID
+
+  //prepare the request
   const options = {
     method: 'GET',
     url: `https://api.themoviedb.org/3/movie/${filmID}/reviews?language=en-US&page=1`,
@@ -14,6 +16,7 @@ exports.getReviews = async (req, res) => {
     const response = await axios.request(options)
     
     const results = response.data.results
+    //standardize the data
     const reviews = results.map(data=>{
       return {
         author: data.author,

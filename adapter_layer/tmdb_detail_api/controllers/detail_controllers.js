@@ -1,19 +1,20 @@
 const axios = require("axios")
 exports.getDetails = async (req, res) => {
   const filmID = req.query.filmID
-  console.log(process.env.TMDB_AUTHORIZATION)
+  //prepare the request
   const options = {
     method: 'GET',
     url: `https://api.themoviedb.org/3/movie/${filmID}`,
     headers: {
         accept: 'application/json',
-        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0YmY0ODkyNTAwM2U3OWI3ZjhhYzFjNzlkNDkzNWNlNiIsInN1YiI6IjYyM2YzMmJiYzYxNmFjMDA0Nzc5MWM3NSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.juuccecra3Tn695-P7vijBiEMgA1PFU39cCQ1k-kYqc'
+        Authorization: process.env.TMDB_AUTHORIZATION
       }
   };
 
   try {
     const response = await axios.request(options)
     
+    //standardize the data
     const data = response.data
     const detail ={
       id:data.imdb_overview,
