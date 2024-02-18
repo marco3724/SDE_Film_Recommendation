@@ -27,6 +27,16 @@ services:
       - ${FULL_OVERVIEW_PORT}:${FULL_OVERVIEW_PORT}
     expose:
       - ${FULL_OVERVIEW_PORT}
+  recommend:
+    build: ./process_centric_layer/recommend_process
+    restart: always
+    environment:
+      - RECOMMEND_PROCESS_PORT
+      - RECOMMEND_PORT
+    ports:
+      - ${RECOMMEND_PROCESS_PORT}:${RECOMMEND_PROCESS_PORT}
+    expose:
+      - ${RECOMMEND_PROCESS_PORT}
   # Business Layer
   login_business:
     build: ./business_logic_layer/login
@@ -88,6 +98,19 @@ services:
      - ${AVAILABILITY_STREAMING_BUSINESS_PORT}:${AVAILABILITY_STREAMING_BUSINESS_PORT}
    expose:
      - ${AVAILABILITY_STREAMING_BUSINESS_PORT}
+   depends_on:
+     - tmdb_detail_adapter
+
+  recommend_business:
+   build: ./business_logic_layer/recommend
+   restart: always
+   environment:
+     - RECOMMEND_PORT
+     - IMDB_DETAIL_PORT
+   ports:
+     - ${RECOMMEND_PORT}:${RECOMMEND_PORT}
+   expose:
+     - ${RECOMMEND_PORT}
    depends_on:
      - tmdb_detail_adapter
   # Adapter Layer

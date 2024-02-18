@@ -1,21 +1,14 @@
 const router = require("express").Router();
-const controller = require("../controllers/detail_controllers.js")
-
-// Gets information of a film from the imdb api
-router.get("/detail", controller.getDetails);
-
-// Gets the suggestion with the film that matches the search term
-router.get("/autocomplete", controller.getAutocomplete);
-
-//Gets the suggestion with the film that matches the genres
-router.get("/recommend_popular_film", controller.getPopularFilmByGenres);
+const controller = require("../controllers/recommend_controllers.js")
+// Get full recommendation film
+router.get("/", controller.getRecommendation);
 
 //check the status of this microservices
 router.get('/health', (req, res) => {
     let response = {
         "status": "ok",
         "code": 200,
-        "message": "imdb detail api is up and running"
+        "message": "Detail api is up and running"
       }
       res.status(200).send(response);
   });
