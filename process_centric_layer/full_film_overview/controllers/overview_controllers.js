@@ -1,7 +1,7 @@
 const axios = require("axios")
 exports.getDetails = async (req, res) => {
 
-
+  //prepare the request for the first service
   const filmID = req.query.filmID
   let port = process.env.FULL_DETAIL_PORT || 4000;
   let options = {
@@ -23,6 +23,8 @@ exports.getDetails = async (req, res) => {
       return res.status(500).send(response);
 
   }
+
+  //prepare the request for the second service
   port = process.env.FULL_REVIEW_PORT || 4001;
   options = {
     method: 'GET',
@@ -44,6 +46,7 @@ exports.getDetails = async (req, res) => {
 
   }
 
+  //prepare the request for the third service
   port = process.env.AVAILABILITY_STREAMING_BUSINESS_PORT ||4002;
   options = {
     method: 'GET',
@@ -64,6 +67,7 @@ exports.getDetails = async (req, res) => {
       return res.status(500).send(response);
 
   }
+  //prepare the response
   const full_detail= {
     ...detail,
     reviews: [...review],
