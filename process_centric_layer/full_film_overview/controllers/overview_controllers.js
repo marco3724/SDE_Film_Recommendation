@@ -43,10 +43,31 @@ exports.getDetails = async (req, res) => {
       return res.status(500).send(response);
 
   }
- 
+
+  port = process.env.AVAILABILITY_STREAMING_BUSINESS_PORT ||4002;
+  options = {
+    method: 'GET',
+    url: `http://streaming_avaibility_business:${port}/available_streaming_services?filmID=${filmID}`,
+  };
+
+  try {
+    const response = await axios.request(options);
+    //console.log(response.data);
+    availability = response.data
+  } catch (error) {
+      response = {
+        "status": "error",
+        "code": 500,
+        "message": "Error in fetching data from imdb adapter layer"
+      }
+      console.log(error)
+      return res.status(500).send(response);
+
+  }
   const full_detail= {
     ...detail,
-    reviews: [...review]
+    reviews: [...review],
+    services: availability
   }
   return res.status(200).send(full_detail);
      
