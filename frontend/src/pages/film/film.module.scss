@@ -45,6 +45,16 @@
                 flex-direction: row;
                 flex-wrap: wrap;
                 justify-content: space-between;
+                
+                a{
+                    color: #1e90ff;
+                    font-weight: 600;
+                    text-decoration: underline;
+                    
+                }
+                .margin{
+                    margin-bottom: 1rem;
+                }
                 .otherInfoLeft{
                     display: flex;
                     flex-direction: column;
@@ -52,16 +62,26 @@
                 .column .fieldContent{
                     display: flex;
                     flex-direction: column;
-                    gap: 1rem;
+                   
                 }
-
+                .lastColumn .fieldContent{
+                    display: flex;
+                    flex-direction: column;
+                }
+                .lastColumn{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                   
+                }
                 .fieldTitle{
                     font-size: 1.2rem;
-                    font-weight: 700;
+                    font-weight: 600;
                 }
                 .fieldContent{
                     color:#1e90ff;
                     font-weight: 500;
+                    gap: 0.4rem;
                 }
                 
             }
@@ -71,8 +91,7 @@
                 width: fit-content;
                 padding: 0.5rem 1rem;
                 border-radius: 20px;
-                position: absolute;
-                right: 0;
+               
                 transition: background-color 0.3s;
                 a{
                     color: black;
