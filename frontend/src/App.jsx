@@ -28,7 +28,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <div className='logo'>MOVIE</div>
+        <div className='logo'><a href={`/`}>MOVIE</a></div>
         <div className='menu'>
           <div className='item'><a href={`/login`}>Login</a></div>
           <div className='item'><a href={`/search`}>Search</a></div>

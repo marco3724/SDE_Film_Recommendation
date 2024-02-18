@@ -226,7 +226,7 @@ function Film() {
             <div className={styles.header}>
                 <div className={styles.left}>
                     <div className = {styles.title}>{film.title}</div>
-                    <div className={styles.genres}>{film.genres.map(x=>x+'&')}</div>
+                    <div className={styles.genres}>{film.genres.toString().replaceAll(',',' & ')}</div>
                 </div>
                 <div className={styles.right}>
                     <div className = {styles.rating}><FaStar /> {film.rating.toFixed(2)}<span className={styles.outOf}>/10</span></div>
