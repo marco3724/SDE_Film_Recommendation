@@ -1,9 +1,9 @@
 const axios = require("axios")
 exports.getDetails = async (req, res) => {
 
-
+  //fetching the detail from the first provider
   const filmID = req.query.filmID
-  let detail1,detail2 = {}
+  const details = []
   let port = process.env.IMDB_DETAIL_PORT || 3000;
   let options = {
     method: 'GET',
@@ -13,7 +13,7 @@ exports.getDetails = async (req, res) => {
   try {
     const response = await axios.request(options);
     //console.log(response.data);
-    detail1 = response.data
+    details.push(response.data)
   } catch (error) {
       response = {
         "status": "error",
@@ -24,6 +24,8 @@ exports.getDetails = async (req, res) => {
       return res.status(500).send(response);
 
   }
+
+   //fetching the detail from the second  provider
   port = process.env.TMDB_DETAIL_PORT || 3001;
   options = {
     method: 'GET',
@@ -33,7 +35,7 @@ exports.getDetails = async (req, res) => {
   try {
     const response = await axios.request(options);
     console.log(response.status)
-    detail2 = response.data
+    details.push(response.data)
   } catch (error) {
       response = {
         "status": "error",
@@ -44,12 +46,21 @@ exports.getDetails = async (req, res) => {
       return res.status(500).send(response);
 
   }
- 
-  const full_detail= {
-    ...detail1,
-    ...detail2
-  }
-  full_detail.genres = [...new Set([...detail1.genres, ...detail2.genres])]
+  //process data and merge the object
+  const full_detail = details.reduce((acc, obj) => ({ ...acc, ...obj }), {})
+  //merge rating from various api
+  let rating = 0
+  details.forEach(detail => {
+    rating += detail.rating
+  })
+  full_detail.rating = rating / details.length
+
+  //merge genres
+  const genres = new Set()
+  details.forEach(detail => {
+    detail.genres.forEach(gen=>genres.add(gen))
+  })
+  full_detail.genres = [...genres]
   return res.status(200).send(full_detail);
      
 }
