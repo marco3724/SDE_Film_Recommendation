@@ -33,7 +33,7 @@ exports.getDetails = async (req, res) => {
   try {
     const response = await axios.request(options);
     //console.log(response.status)
-    reviews.push(response.data)
+    reviews.push(...response.data)
   } catch (error) {
       response = {
         "status": "error",
