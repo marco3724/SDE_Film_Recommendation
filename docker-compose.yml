@@ -106,18 +106,6 @@ services:
     depends_on: 
       - database
   
-  database:
-    image: mysql:8.3
-    restart: always
-    environment:
-      - MYSQL_DATABASE
-      - MYSQL_USER
-      - MYSQL_PASSWORD
-      - MYSQL_ROOT_PASSWORD
-    expose:
-      - ${AUTH_DB_PORT}
-    volumes:
-      - user-db:/var/lib/mysql
 
   imdb_detail_adapter:
     build: ./adapter_layer/imdb_detail_api
@@ -173,5 +161,18 @@ services:
     expose:
       - ${STREAMING_AVAILABILITY_PORT}
 
+  database:
+    image: mysql:8.3
+    restart: always
+    environment:
+      - MYSQL_DATABASE
+      - MYSQL_USER
+      - MYSQL_PASSWORD
+      - MYSQL_ROOT_PASSWORD
+    expose:
+      - ${AUTH_DB_PORT}
+    volumes:
+      - user-db:/var/lib/mysql
+      
 volumes:
-  user-db
+  user-db:
