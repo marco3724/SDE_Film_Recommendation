@@ -2,7 +2,6 @@ const savedFilmsModel = require("../models/savedFilm.js");
 
 exports.findAllSavedFilms = async (request, response) => {
     const email = request.query.email;
-    console.log(email)
 
     const user = await savedFilmsModel.find({ userEmail: email });
 
