@@ -1,5 +1,6 @@
 import { useState,useEffect} from 'react';
-
+import styles from './searchbar.module.scss';
+import {FaSearch} from 'react-icons/fa'
 function SearchBar() {
   const [search, setSearch] = useState('')
   const [data, setData] = useState([]);
@@ -34,20 +35,24 @@ function SearchBar() {
       }
     };
   return (
-    <div>
-      <input
-        type="text"
-        value={search}
-        onChange={(e) => {
-            setSearch(e.target.value)
-        }}
-      />
-      <div>
-        {data.map((item, index) => {
-          return <a href={`/film/${item.id}`} key={index} >{item.title}</a>
-        })}
+    <>
+      <div className={styles.searchbar}>
+        <input 
+          type="text"
+          placeholder='Search for a movie...'
+          value={search}
+          onChange={(e) => {
+              setSearch(e.target.value)
+          }}
+        />
+        <FaSearch className={styles.icon}/>
       </div>
-    </div>
+      <div className={data.length>0 ?styles.styledItems:styles.noHeight}>
+      {data.map((item, index) => {
+        return <a className={styles.item} href={`/film/${item.id}`} key={index} >{item.title}</a>
+      })}
+      </div>
+    </>
   );
 }
 export default SearchBar;
