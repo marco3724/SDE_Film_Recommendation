@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 exports.connectDB = () => {
-    const url = 'mongodb://127.0.0.1:27017/films';
+    const url = `mongodb://user_db:${process.env.USER_DB_PORT}/films`
 
     try {
         mongoose.connect(url);
