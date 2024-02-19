@@ -8,6 +8,7 @@ import { useState } from 'react';
 import AuthenticationPage from "./pages/authentication/AuthenticationPage";
 import Search from "./pages/search/Search";
 import Film from "./pages/film/Film";
+import History from './pages/history/History';
 import { useEffect } from 'react';
 const router = createBrowserRouter([
   {
@@ -20,9 +21,14 @@ const router = createBrowserRouter([
   {
     path: "/search",
     element: <Search/>,
-  }, {
+  },
+  {
     path: "film/:filmId",
     element: <Film/>,
+  },
+  {
+    path: "/history",
+    element: <History />
   },
 ]);
 
@@ -66,7 +72,7 @@ function App() {
           <div className='item'><a href={`/`}>Recommend</a></div>
           <div className='item'>{
           isAuthenticated?
-            "ciaof" 
+            <a href={`/history`}>History</a> 
             :
             <a href={`/login`}>Login</a>
             }</div>
