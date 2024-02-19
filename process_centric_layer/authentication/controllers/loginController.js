@@ -55,7 +55,7 @@ exports.verifyAuthentication = async (request, response) => {
     if (!token) {
         return response.status(200).json({
             status: "success",
-            authenticated: false
+            isAuthenticated: false
         });
     }
 
