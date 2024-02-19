@@ -11,9 +11,12 @@ exports.saveFilm = async (request, response) => {
              { $push: {
                 films: {
                     id: request.body.film.id,
+                    image: request.body.film.image,
+                    plot: request.body.film.plot,
+                    filmLenght: request.body.film.filmLenght,
                     year: request.body.film.year,
+                    genres: request.body.film.genres,
                     title: request.body.film.title,
-                    rating: request.body.film.rating 
                 }
             }}
         );
@@ -24,9 +27,12 @@ exports.saveFilm = async (request, response) => {
             userEmail: request.body.email,
             films: [{
                 id: request.body.film.id,
+                image: request.body.film.image,
+                plot: request.body.film.plot,
+                filmLenght: request.body.film.filmLenght,
                 year: request.body.film.year,
+                genres: request.body.film.genres,
                 title: request.body.film.title,
-                rating: request.body.film.rating 
             }]
         });
 
