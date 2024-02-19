@@ -1,0 +1,15 @@
+.film{
+    margin: auto;
+    width: fit-content;
+}
+.container{
+    margin: auto;
+    width: fit-content;
+    .title{
+        text-align: center;
+        font-size: 3rem;
+        margin-bottom: 1.5rem;
+        color: #1e90ff;
+        font-weight: 700;
+    }
+}
