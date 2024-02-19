@@ -49,6 +49,9 @@ exports.getHistory = async (request, response) => {
     const req = await axios.request(queryOptions);
     let res = req.data;
     console.log(res);
-    return response.status(200).json({message: "correct"});
+    return response.status(200).json({
+      message: "correct",
+      films: res.films
+    });
   }
 }
