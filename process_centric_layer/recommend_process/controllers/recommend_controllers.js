@@ -28,3 +28,27 @@ exports.getDetails = async (req, res) => {
   return res.status(200).send(details);
      
 }
+
+exports.getHistory = async (request, response) => {
+  const token = request.cookies["token"];
+  
+  if (!token) {
+    return response.status(400).json({
+      status: "unsuccess",
+      message: "You need to login in order to see you history"
+    });
+  } else {
+    let queryOptions = {
+      method: "GET",
+      url: `http://recommend_business:${process.env.RECOMMEND_PORT}/recommend_film/get-history`,
+      params: {
+        tkn: token
+      }
+    };
+
+    const req = await axios.request(queryOptions);
+    let res = req.data;
+    console.log(res);
+    return response.status(200).json({message: "correct"});
+  }
+}

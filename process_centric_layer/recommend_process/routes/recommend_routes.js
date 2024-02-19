@@ -3,6 +3,9 @@ const controller = require("../controllers/recommend_controllers.js")
 // Get full detail of a film
 router.get("/", controller.getDetails);
 
+// Get history of recommended films
+router.get("/get-history", controller.getHistory);
+
 //check the status of this microservices
 router.get('/health', (req, res) => {
     let response = {
