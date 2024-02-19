@@ -16,6 +16,7 @@ services:
     depends_on:
       - login_business
       - registration_business
+
   overview:
     build: ./process_centric_layer/full_film_overview
     restart: always
@@ -27,6 +28,7 @@ services:
       - ${FULL_OVERVIEW_PORT}:${FULL_OVERVIEW_PORT}
     expose:
       - ${FULL_OVERVIEW_PORT}
+
   recommend:
     build: ./process_centric_layer/recommend_process
     restart: always
@@ -107,12 +109,15 @@ services:
    environment:
      - RECOMMEND_PORT
      - IMDB_DETAIL_PORT
+     - LOGIN_BUSINESS_PORT
+     - USER_ADAPTER_PORT
    ports:
      - ${RECOMMEND_PORT}:${RECOMMEND_PORT}
    expose:
      - ${RECOMMEND_PORT}
    depends_on:
      - tmdb_detail_adapter
+     
   # Adapter Layer
   auth_db_adapter:
     build: ./adapter_layer/auth_db_interface
