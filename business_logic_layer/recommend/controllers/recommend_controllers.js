@@ -61,3 +61,34 @@ exports.getRecommendation = async (req, res) => {
   }
      
 }
+
+exports.getHistory = async (request, response) => {
+  const url = `http://login_business:${process.env.LOGIN_BUSINESS_PORT}/login/verify-token`;
+  const token = request.query.tkn;
+  
+  // verify token
+  const query = await axios.post(url, {
+    tkn: token
+  });
+  let result = query.data;
+  if (result.status === "success" && result.isAuthenticated) {
+    // if the toke is valid and the user is authenticated, proceed querying the adapter
+    let userEmail = result.plain_token.email;
+    let adapter_url = `http://saved_film_adapter:${process.env.USER_ADAPTER_PORT}/retrieve-film?email=${userEmail}`;
+    const getHistoryQuery = await axios.get(adapter_url);
+    let retrievedFilms = getHistoryQuery.data;
+
+    return response.status(200).json({
+      status: "success",
+      message: "retrieve films",
+      films: retrievedFilms.savedFilms
+    });
+  } else {
+    return response.status(400).json({
+      status: "unsuccess",
+      message: "invalid token"
+    });
+  }
+
+
+};
