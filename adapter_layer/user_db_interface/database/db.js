@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 exports.connectDB = () => {
-    const url = `mongodb://user_db:${process.env.USER_DB_PORT}/films`
+    const url = `mongodb://saved_film_db:${process.env.USER_DB_PORT}/films`
 
     try {
         mongoose.connect(url);
