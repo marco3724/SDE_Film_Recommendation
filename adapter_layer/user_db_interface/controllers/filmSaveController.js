@@ -3,7 +3,6 @@ const film = require("../models/savedFilm.js");
 exports.saveFilm = async (request, response) => {
 
     const findUser = await film.find({ userEmail: request.body.email }).exec();
-    console.log(findUser[0].films);
     
     if (!findUser.length == 0) {
 

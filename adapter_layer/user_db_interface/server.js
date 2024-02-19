@@ -8,7 +8,6 @@ const PORT = process.env.USER_ADAPTER_PORT || 3000;
 const server = express();
 connectDB();
 server.use(bodyParser.json());
-server.use(bodyParser.urlencoded({ extended: true }));
 server.use("/save-film", filmSaveRouter);
 server.use("/retrieve-film", retrieveFilmRouter);
 
