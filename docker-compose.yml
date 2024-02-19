@@ -184,6 +184,27 @@ services:
     expose:
       - ${STREAMING_AVAILABILITY_PORT}
 
+  saved_film_adapter:
+    build: ./adapter_layer/user_db_interface
+    restart: always
+    environment:
+      - USER_ADAPTER_PORT
+      - USER_DB_PORT
+    ports:
+      - ${USER_ADAPTER_PORT}:${USER_ADAPTER_PORT}
+    expose:
+      - ${USER_ADAPTER_PORT}
+    depends_on:
+      - saved_film_db
+
+  saved_film_db:
+    image: mongo:7.0.5
+    restart: always
+    expose:
+      - ${USER_DB_PORT}
+    volumes:
+      - user-film:/data/db
+      
   database:
     image: mysql:8.3
     restart: always
@@ -199,3 +220,4 @@ services:
       
 volumes:
   user-db:
+  user-film:
