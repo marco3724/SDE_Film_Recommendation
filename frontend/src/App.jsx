@@ -48,8 +48,6 @@ function App() {
         return false
       }
       const data = await response.json();
-      console.log(data)
-      console.log(data.isAuthenticated)
       return data.isAuthenticated
 
     } catch (error) {
