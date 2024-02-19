@@ -10,6 +10,7 @@ import Search from "./pages/search/Search";
 import Film from "./pages/film/Film";
 import History from './pages/history/History';
 import { useEffect } from 'react';
+import Recommend from './pages/recommend/Recommend';
 const router = createBrowserRouter([
   {
     path: "/login",
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
     path: "/search",
     element: <Search/>,
   },
+  {
+    path: "/recommend/:genre",
+    element: <Recommend/>,
+  }, 
   {
     path: "film/:filmId",
     element: <Film/>,
@@ -54,8 +59,6 @@ function App() {
         return false
       }
       const data = await response.json();
-      console.log(data)
-      console.log(data.isAuthenticated)
       return data.isAuthenticated
 
     } catch (error) {

@@ -1,0 +1,58 @@
+.container{
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    max-width: 750px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.1);
+    margin-bottom: 1.5rem;
+    .title{
+        font-size: 2rem;
+        font-weight: bold;
+    }
+    .plot{
+        margin-bottom: 1rem;
+        div:first-of-type{
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+    } 
+    .info{
+        display:flex;
+        div:first-of-type{
+            font-weight: 500;
+            margin-right: 0.5rem;
+        }
+        div:last-of-type{
+            color: #1e90ff;
+            font-weight: 500;
+        }
+    }
+    .button{
+        padding: 1rem;
+        background-color: black;
+        border-radius: 15px;
+        color: aliceblue;
+        margin-left: auto;
+        width: fit-content;
+        transition: transform 0.2s;
+        &:hover{
+           transform: scale(1.1);
+           cursor: pointer;
+        }
+        a{
+            text-decoration: none;
+            color: white;
+        }
+    }
+}
+
+.image{
+    max-width: 200px;
+    max-height: 300px;
+    img{
+        width: 100%;
+        height: 100%;
+    }
+}

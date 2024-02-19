@@ -36,6 +36,7 @@ exports.getRecommendation = async (req, res) => {
 
     try {
       const response = await axios.request(options);
+      response.data.id = filmID
       return response.data
     } catch (error) {
       console.error(error);

@@ -43,7 +43,7 @@ exports.getDetails = async (req, res) => {
         "message": "Error in fetching data from tmdb adapter layer"
       }
       console.log(error)
-      return res.status(500).send(response);
+      //return res.status(500).send(response);
 
   }
   //process data and merge the object
