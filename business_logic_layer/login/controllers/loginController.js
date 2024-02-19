@@ -65,7 +65,6 @@ exports.verifyToken = async (request, response) => {
         return response.status(200).json({
             status: "success",
             isAuthenticated: true,
-            plain_token: decodedToken
         });
     } catch (error) {
         return response.status(200).json({
