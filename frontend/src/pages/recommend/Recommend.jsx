@@ -10,7 +10,10 @@ function Recommend() {
 
   const searchRecommendedFilm = async () => {
     try {
-      const response = await fetch(`http://localhost:8006/recommend_film?genre=${genre.toLocaleLowerCase()}`);
+      const response = await fetch(`http://localhost:8006/recommend_film?genre=${genre.toLocaleLowerCase()}`, {
+        method: 'GET',
+        credentials: 'include'
+      });
       if (!response.ok) {
         throw new Error('response was not ok');
       }
