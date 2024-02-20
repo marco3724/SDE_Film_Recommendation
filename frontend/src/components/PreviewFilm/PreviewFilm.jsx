@@ -12,7 +12,7 @@ export function PreviewFilm({film}){
             </div>
             <div className={styles.info}>
                 <div>Duration:</div>
-                <div> {film.filmLenght?film.filmLenght:'-'}</div>
+                <div> {film.filmLenght?film.filmLenght+' minutes':'-'}</div>
             </div>
             <div className={styles.info}>
                 <div>Year:</div>

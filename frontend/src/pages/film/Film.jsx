@@ -32,11 +32,12 @@ function Film() {
     }
     return (
         <div className={styles.container}>
+            
           <div className={styles.info}>
             <div className={styles.header}>
                 <div className={styles.left}>
-                    <div className = {styles.title}>{film.title}</div>
-                    <div className={styles.genres}>{film.genres.toString().replaceAll(',',' & ')}<span> <a href={`/recommend/${film.genres[Math.floor(Math.random() * film.genres.length)]}`}> recommend film...</a></span></div>
+                    <div className = {styles.title}>{film.title} </div>
+                    <div className={styles.genres}>{film.genres.toString().replaceAll(',',' & ')}</div>
                 </div>
                 <div className={styles.right}>
                     <div className = {styles.rating}><FaStar /> {film.rating ? film.rating.toFixed(2): '--'}<span className={styles.outOf}>/10</span></div>
@@ -49,7 +50,7 @@ function Film() {
                 <div className={styles.details}>
                     
                     <div className = {styles.plot}>
-                        <div className={styles.plotTitle}>About the Movie</div>
+                        <div className={styles.plotTitle}><span>About the Movie</span> <span className={styles.recommendFilm}> <a href={`/recommend/${film.genres[Math.floor(Math.random() * film.genres.length)]}`}>Recommend films</a></span></div>
                         <div className={styles.text}>{film.overview}</div>
                     </div>
                     <div className={styles.otherInfo}>
@@ -93,7 +94,7 @@ function Film() {
                         <div className={styles.lastColumn}>
                             <div>
                             <div className={styles.fieldTitle}>Streaming platform</div>
-                            <div className={styles.fieldContent}>{film.services.services ? film.services.services.map(x=><a href={x.link} target='_blank'>{x.service}</a>):'---'} </div>
+                            <div className={styles.fieldContent}>{film.services.services ? film.services.services.map(x=><a className={styles.services} href={x.link} target='_blank'>{x.service}</a>):'---'} </div>
                             </div>
                             <div className={styles.homepage}>
                                 <a href={film.homepage} target='_blank'>

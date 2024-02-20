@@ -41,6 +41,8 @@
                     font-size: 1.5rem;
                     font-weight: 600;
                     margin-bottom: 1rem;
+                    display: flex;
+                    justify-content: space-between;
                 }
                 margin-bottom: 1rem;
             }
@@ -86,6 +88,9 @@
                     color:#1e90ff;
                     font-weight: 500;
                     gap: 0.4rem;
+                    .services::first-letter{
+                        text-transform: uppercase;
+                    }
                 }
                 
             }
@@ -142,4 +147,20 @@
     height: 100%;
     font-size: 2rem;
     font-weight: 600;
+}
+.recommendFilm{
+    padding: 0.5rem;
+    background-color: #1e90ff;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: transform 0.2s;
+    &:hover{
+        cursor: pointer;
+        transform: scale(1.05);
+    }
+    a{
+        color: white;
+        font-weight: 600;
+        text-decoration: none;
+    }
 }
