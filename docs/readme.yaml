@@ -12,6 +12,9 @@ servers:
 tags:
   - name: Adapters
 paths:
+
+  # ------ ADAPTER  ------
+
   /imdb_film/details:
     get:
       tags:
@@ -233,7 +236,7 @@ paths:
         '500':
           description: Internal server error 
 
-  /login:
+  /auth_adapter/login:
     post:
       tags:
         - Auth DB Adapter
@@ -263,7 +266,7 @@ paths:
           description: Wrong email or password
           
 
-  /register:
+  /auth_adapter/register:
     post:
       tags:
         - Auth DB Adapter
@@ -294,7 +297,7 @@ paths:
         '500':
           description: Found an account with the same email
           
-  /save-film:
+  /film_adapter/save-film:
     post:
       tags:
         - Movie DB Adapter
@@ -324,7 +327,7 @@ paths:
         '500':
           description: Something went wrong
   
-  /retrieve-film:
+  /film_adapter/retrieve-film:
     get:
       tags:
         - Movie DB Adapter
@@ -344,6 +347,283 @@ paths:
           description: user found
         '400':
           description: user not found
+
+
+  # ------ BUSINESS  ------
+  /recommend-film:
+    get:
+      tags:
+        - Recommendation Business
+      summary: Retrieve recommended films
+      description: Retrieve all the recommended films for a user
+      parameters:
+      - name: genre
+        in: query
+        description: The genre for which recommend
+        content:
+          application/json:
+            schema:
+              type: string
+        required: true
+      - name: token
+        in: query
+        description: The JWT
+        content:
+          application/json:
+            schema:
+              type: string
+        required: true
+      responses:
+        '200':
+          description: Films recommended
+        '500':
+          description: Something went wrong
+
+
+  /recommend-film/get-history:
+    get:
+      tags:
+        - Recommendation Business
+      summary: Retrieve history of recommended films
+      description: Retrieve all the recommended films for a user
+      parameters:
+      - name: token
+        in: query
+        description: The JWT
+        content:
+          application/json:
+            schema:
+              type: string
+        required: true
+      responses:
+        '200':
+          description: Retrieved films
+        '400':
+          description: Invalid token
+
+
+  /recommend-film/save-history:
+    post:
+      tags:
+        - Recommendation Business
+      summary: Save recommended films
+      description: Retrieve all the recommended films for a user
+      parameters:
+      - name: token
+        in: query
+        description: The JWT
+        content:
+          application/json:
+            schema:
+              type: string
+        required: true
+      - name: films
+        in: query
+        description: The list of films to be saved
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+      responses:
+        '200':
+          description: Saved films
+        '400':
+          description: Invalid token
+
+  /login_business/login:
+    post:
+      tags:
+        - Login Business
+      summary: Performs the login
+      description: Verifies whether the user can login or not
+      parameters:
+        - name: email
+          in: query
+          description: The user email
+          content:
+            application/json:
+              schema:
+                type: string
+          required: true
+        - name: password
+          in: query
+          description: The user password
+          content:
+            application/json:
+              schema:
+                type: string
+          required: true
+      responses:
+        '200':
+          description: Succesfully logged in!
+        '400':
+          description: Wrong email or password
+        '500':
+          description: Oops server has a problem :(
+
+
+  /login_business/login/verify-token:
+    post:
+      tags:
+        - Login Business
+      summary: Verifies JWT Token
+      description: It allows to verify a JWT token to know if a user is authenticated or not
+      parameters:
+      - name: token
+        in: query
+        description: The JWT
+        content:
+          application/json:
+            schema:
+              type: string
+        required: true
+      responses:
+        '200':
+          description: user authenticated
+        '400':
+          description: user not authenticated
+
+
+  # ------ PROCESS  ------
+    /auth/register:
+    post:
+      tags:
+        - Authentication
+      summary: Register the user
+      description: Coordinates the registration process
+      parameters:
+        - name: userName
+          in: query
+          description: The username
+          content:
+            application/json:
+              schema:
+                type: string
+          required: true
+        - name: email
+          in: query
+          description: The user email
+          content:
+            application/json:
+              schema:
+                type: string
+          required: true
+        - name: password
+          in: query
+          description: The user password
+          content:
+            application/json:
+              schema:
+                type: string
+          required: true
+      responses:
+        '200':
+          description: Registration succesfull
+        '400':
+          description: All fields are required
+
+  /auth/login:
+    post:
+      tags:
+        - Authentication
+      summary: Login Procedure
+      description: Login procedure
+      parameters:
+        - name: email
+          in: query
+          description: The user email
+          content:
+            application/json:
+              schema:
+                type: string
+          required: true
+        - name: password
+          in: query
+          description: The user password
+          content:
+            application/json:
+              schema:
+                type: string
+          required: true
+      responses:
+        '200':
+          description: Successfull login
+        '400':
+          description: Unuccessfull login
+
+  /auth/login/isAuthenticated:
+    post:
+      tags:
+        - Authentication
+      summary: Verifies whether the user is authenticated or not
+      description: Verifies whether the user is authenticated or not
+      parameters:
+      - name: token
+        in: query
+        description: The JWT
+        content:
+          application/json:
+            schema:
+              type: string
+        required: true
+      responses:
+        '200':
+          description: user authenticated
+        '400':
+          description: user not authenticated
+
+  /recommend_film:
+    get:
+      tags:
+        - Recommendation Service
+      summary: Retrieve recommended films
+      description: Retrieve all the recommended films for a user
+      parameters:
+      - name: genre
+        in: query
+        description: The genre for which recommend
+        content:
+          application/json:
+            schema:
+              type: string
+        required: true
+      - name: token
+        in: query
+        description: The JWT
+        content:
+          application/json:
+            schema:
+              type: string
+        required: true
+      responses:
+        '200':
+          description: Retrieved films
+        '500':
+          description: Error in fetching data
+
+  /recommend_film/get-history:
+    get:
+      tags:
+        - Recommendation Service
+      summary: Retrieve history of recommended films
+      description: Retrieve all the recommended films for a user
+      parameters:
+      - name: token
+        in: query
+        description: The JWT
+        content:
+          application/json:
+            schema:
+              type: string
+        required: true
+      responses:
+        '200':
+          description: Retrieved films
+        '400':
+          description: You need to login in order to see you history
+
   /:
     get:
       tags:
