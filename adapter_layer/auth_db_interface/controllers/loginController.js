@@ -6,7 +6,10 @@ exports.login = async (request, response) => {
     const foundExistingUser = await User.findByPk(request.body.email);
 
     if (!foundExistingUser) {
-        return response.status(500).send({ message: "No such email"});
+        return response.status(500).json({
+            status: "unsuccess",
+            message: "No such email"
+        });
     } else {
         // validate provided credential
         let providedPassword = request.body.password;
@@ -25,7 +28,10 @@ exports.login = async (request, response) => {
                 }
             });
         } else {
-            return response.status(500).send({ message: "Wrong email or password"});
+            return response.status(400).json({
+                status: "unsuccess",
+                message: "Wrong email or password"
+            });
         }
     }
 };
