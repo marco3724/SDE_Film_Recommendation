@@ -4,13 +4,9 @@ info:
   description: |-
     This is the project for the course of  "Services and Design Engineering" 23/24 of the University of Trento. The project is about the development of a microservice that provides a film recommendation system.
     Some useful links:
-    - [The Pet Store repository](https://github.com/marco3724/SDE_Film_Recommendation)
+    - [Film Recommendation repository](https://github.com/marco3724/SDE_Film_Recommendation)
   version: 1.0.11
 
-servers:
-  - url: https://petstore3.swagger.io/api/v3
-tags:
-  - name: Adapters
 paths:
 
   # ------ ADAPTER  ------
@@ -484,10 +480,108 @@ paths:
           description: user authenticated
         '400':
           description: user not authenticated
-
+  /full_details_film/:
+    get:
+      tags:
+        - Detail Business layer
+      summary: Retrieve films details from all sources
+      description:  Retrieve films details from all sources
+      parameters:
+        - name: filmID
+          in: query
+          description: the id of the film
+          required: true
+          content:
+            application/json:
+              schema:
+                type: string
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: Invalid id value
+        '500':
+          description: Internal server error
+  /full_details_film/health/:
+    get:
+      tags:
+        - Detail Business layer
+      summary: check the status of the microservice
+      description: check the status of the microservice
+      responses:
+        '200':
+          description: successful operation
+        '500':
+          description: Internal server error
+  /full_review_film/:
+    get:
+      tags:
+        - Review Business layer
+      summary: Retrieve films review from all sources
+      description:  Retrieve films review from all sources
+      parameters:
+        - name: filmID
+          in: query
+          description: the id of the film
+          required: true
+          content:
+            application/json:
+              schema:
+                type: string
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: Invalid id value
+        '500':
+          description: Internal server error
+  /full_review_film/health/:
+    get:
+      tags:
+        - Review Business layer
+      summary: check the status of the microservice
+      description: check the status of the microservice
+      responses:
+        '200':
+          description: successful operation
+        '500':
+          description: Internal server error
+  /available_streaming_services/:
+    get:
+      tags:
+        - available streaming services Business layer
+      summary: Retrieve all available service from all sources
+      description: Retrieve all available service from all sources
+      parameters:
+        - name: filmID
+          in: query
+          description: the id of the film
+          required: true
+          content:
+            application/json:
+              schema:
+                type: string
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: Invalid id value
+        '500':
+          description: Internal server error
+  /available_streaming_services/health/:
+    get:
+      tags:
+        - available streaming services Business layer
+      summary: check the status of the microservice
+      description: check the status of the microservice
+      responses:
+        '200':
+          description: successful operation
+        '500':
+          description: Internal server error
 
   # ------ PROCESS  ------
-    /auth/register:
+  /auth/register:
     post:
       tags:
         - Authentication
@@ -561,7 +655,7 @@ paths:
       description: Verifies whether the user is authenticated or not
       parameters:
       - name: token
-        in: query
+        in: cookie
         description: The JWT
         content:
           application/json:
@@ -590,13 +684,13 @@ paths:
               type: string
         required: true
       - name: token
-        in: query
+        in: cookie
         description: The JWT
         content:
           application/json:
             schema:
               type: string
-        required: true
+        required: false
       responses:
         '200':
           description: Retrieved films
@@ -623,12 +717,37 @@ paths:
           description: Retrieved films
         '400':
           description: You need to login in order to see you history
-
-  /:
+ 
+  /full_overview_film/:
     get:
       tags:
-        - BUSINESS
+        - full overview film service
+      summary: Retrieve all available detail review and platform availability from all sources
+      description: Retrieve all available detail review and platform availability from all sources
+      parameters:
+        - name: filmID
+          in: query
+          description: the id of the film
+          required: true
+          content:
+            application/json:
+              schema:
+                type: string
       responses:
         '200':
-          description: user found
- 
+          description: successful operation
+        '400':
+          description: Invalid id value
+        '500':
+          description: Internal server error
+  /full_overview_film/health/:
+    get:
+      tags:
+        - full overview film service
+      summary: check the status of the microservice
+      description: check the status of the microservice
+      responses:
+        '200':
+          description: successful operation
+        '500':
+          description: Internal server error
