@@ -14,3 +14,12 @@
     display: flex;
     flex-direction: column;
 }
+
+.errorMessageContainer {
+    display: flex;
+    justify-content: center;
+}
+
+.errorMessage {
+    color: red;
+}

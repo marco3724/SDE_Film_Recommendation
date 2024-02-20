@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 export default function LoginForm() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [success, setSuccess] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
     const navigate = useNavigate();
     const AUTH_PORT = 8003;
     const AUTH_ENDPOINT = `http://localhost:${AUTH_PORT}/login`;
@@ -24,6 +26,8 @@ export default function LoginForm() {
         });
 
         const response = await request.json();
+        setSuccess(response.status);
+        setErrorMessage(response.message);
         if (response.status == "success") {
             navigate("/");
         }
@@ -57,6 +61,13 @@ export default function LoginForm() {
                     <button type="submit">Login</button>
                 </div>
             </form>
+            <div className={styles.errorMessageContainer}>
+                {
+                    success === "unsuccess" ? 
+                    <span className={styles.errorMessage}>{errorMessage}</span> :
+                    <span></span>
+                }
+            </div>
         </div>
     );
 }
