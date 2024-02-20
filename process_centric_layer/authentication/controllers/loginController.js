@@ -7,7 +7,8 @@ exports.loginProcedure = async (request, response) => {
 
     // check if email and password are there
     if (!email || !password) {
-        return response.status(400).send({
+        return response.status(400).json({
+            status: "unsuccess",
             message: "Email and password are required!"
         });
     }
@@ -42,7 +43,6 @@ exports.loginProcedure = async (request, response) => {
             message: "Successfull login"
         });
     } else {
-        console.log(result);
         return response.status(400).send({
             message: "Oops something went wrong :(, during the login"
         });
