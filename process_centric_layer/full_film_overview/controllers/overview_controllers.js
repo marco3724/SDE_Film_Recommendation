@@ -3,6 +3,8 @@ exports.getDetails = async (req, res) => {
 
   //prepare the request for the first service
   const filmID = req.query.filmID
+  if(filmID===undefined)
+    return res.status(400).send({status: "error", message: "No filmID provided"});
   let port = process.env.FULL_DETAIL_PORT || 4000;
   let options = {
     method: 'GET',

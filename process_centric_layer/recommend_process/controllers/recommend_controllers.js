@@ -5,6 +5,10 @@ exports.getDetails = async (req, res) => {
   //prepare the request for the first service
   let details = []
   const genre = req.query.genre
+
+  if(genre===undefined)
+    return res.status(400).send({status: "error", message: "No genre provided"});
+
   const token = req.cookies["token"]
   let port = process.env.RECOMMEND_PORT || 4003;
   let options = {
