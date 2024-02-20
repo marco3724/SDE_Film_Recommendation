@@ -1,0 +1,354 @@
+openapi: 3.0.3
+info:
+  title: Swagger Film Recommender - OpenAPI 3.0
+  description: |-
+    This is the project for the course of  "Services and Design Engineering" 23/24 of the University of Trento. The project is about the development of a microservice that provides a film recommendation system.
+    Some useful links:
+    - [The Pet Store repository](https://github.com/marco3724/SDE_Film_Recommendation)
+  version: 1.0.11
+
+servers:
+  - url: https://petstore3.swagger.io/api/v3
+tags:
+  - name: Adapters
+paths:
+  /imdb_film/details:
+    get:
+      tags:
+        - imdb detail api
+      summary: get the details of a film given the film id
+      description: get the details of a film given the film id
+      parameters:
+        - name: filmID
+          in: query
+          description: the id of the film
+          content:
+            application/json:
+              schema:
+                type: string
+          required: true
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid ID supplied
+        '500':
+          description: Internal server error
+  /imdb_film/autocomplete:
+    get:
+      tags:
+        - imdb detail api
+      summary: give the film that start with the given term
+      description: give the film that start with the given term
+      parameters:
+        - name: name
+          in: query
+          description: the initial letter of the film
+          content:
+            application/json:
+              schema:
+                type: string
+          required: true
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid ID supplied
+        '500':
+          description: Internal server error
+  /imdb_film/recommend_popular_film:
+    get:
+      tags:
+        - imdb detail api
+      summary: recommend populare film by genre
+      description: recommend populare film by genre
+      parameters:
+        - name: genre
+          in: query
+          description: the genre of the recommeded film
+          content:
+            application/json:
+              schema:
+                type: string
+          required: true
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid ID supplied
+        '500':
+          description: Internal server error
+  /imdb_film/health:
+    get:
+      tags:
+        - imdb detail api
+      summary: check the status of the microservice
+      description: check the status of the microservice
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: Invalid tag value
+        '500':
+          description: Internal server error
+   
+  /imdb_film_review/:
+    get:
+      tags:
+        - imdb review api
+      summary: get the review
+      description: get the review of thefilm by its id
+      parameters:
+        - name: filmID
+          in: query
+          description: the id of the film
+          required: true
+          content:
+            application/json:
+              schema:
+                type: string
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: Invalid id value
+        '500':
+          description: Internal server error
+  /imdb_film_review/health:
+    get:
+      tags:
+        - imdb review api
+      summary: check the status of the microservice
+      description: check the status of the microservice
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: Invalid tag value
+        '500':
+          description: Internal server error
+  /tmdb_film/details:
+    get:
+      tags:
+        - tmdb detail api
+      summary: get the details of a film given the film id
+      description: get the details of a film given the film id
+      parameters:
+        - name: filmID
+          in: query
+          description: the id of the film
+          content:
+            application/json:
+              schema:
+                type: string
+          required: true
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid ID supplied
+        '500':
+          description: Internal server error
+  /tmdb_film/health:
+    get:
+      tags:
+        - tmdb detail api
+      summary: check the status of the microservice
+      description: check the status of the microservice
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: Invalid tag value
+        '500':
+          description: Internal server error
+  /tmdb_film_review/:
+    get:
+      tags:
+        - tmdb review api
+      summary: get the review
+      description: get the review of thefilm by its id
+      parameters:
+        - name: filmID
+          in: query
+          description: the id of the film
+          required: true
+          content:
+            application/json:
+              schema:
+                type: string
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: Invalid id value
+        '500':
+          description: Internal server error
+  /tmdb_film_review/health:
+    get:
+      tags:
+        - tmdb review api
+      summary: check the status of the microservice
+      description: check the status of the microservice
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: Invalid tag value
+        '500':
+          description: Internal server error   
+  /streaming_availability/:
+    get:
+      tags:
+        - streaming availability
+      summary: getthe vailability of a film from different services
+      description: get the review of thefilm by its id
+      parameters:
+        - name: filmID
+          in: query
+          description: the id of the film
+          required: true
+          content:
+            application/json:
+              schema:
+                type: string
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: Invalid id value
+        '500':
+          description: Internal server error
+  /streaming_availability/health:
+    get:
+      tags:
+        - streaming availability
+      summary: check the status of the microservice
+      description: check the status of the microservice
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: Invalid tag value
+        '500':
+          description: Internal server error 
+
+  /login:
+    post:
+      tags:
+        - Auth DB Adapter
+      summary: Login
+      description: Allows the user to log in
+      parameters:
+        - name: email
+          in: query
+          description: The user email
+          content:
+            application/json:
+              schema:
+                type: string
+          required: true
+        - name: password
+          in: query
+          description: The user password
+          content:
+            application/json:
+              schema:
+                type: string
+          required: true
+      responses:
+        '200':
+          description: Succesfully logged in
+        '400':
+          description: Wrong email or password
+          
+
+  /register:
+    post:
+      tags:
+        - Auth DB Adapter
+      summary: Register
+      description: Allows the user to register
+      parameters:
+        - name: email
+          in: query
+          description: The user email
+          content:
+            application/json:
+              schema:
+                type: string
+          required: true
+        - name: password
+          in: query
+          description: The user password
+          content:
+            application/json:
+              schema:
+                type: string
+          required: true
+      responses:
+        '200':
+          description: good
+        '400':
+          description: bad
+        '500':
+          description: Found an account with the same email
+          
+  /save-film:
+    post:
+      tags:
+        - Movie DB Adapter
+      summary: Save films
+      description: Save all the recommended films
+      parameters:
+        - name: email
+          in: query
+          description: The user email
+          content:
+            application/json:
+              schema:
+                type: string
+          required: true
+        - name: films
+          in: query
+          description: The list of films to be saved
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+      responses:
+        '200':
+          description: Film saved succesfully
+        '500':
+          description: Something went wrong
+  
+  /retrieve-film:
+    get:
+      tags:
+        - Movie DB Adapter
+      summary: Retrieve films
+      description: Retrieve all the recommended films for a user
+      parameters:
+      - name: email
+        in: query
+        description: The user email
+        content:
+          application/json:
+            schema:
+              type: string
+        required: true
+      responses:
+        '200':
+          description: user found
+        '400':
+          description: user not found
+  /:
+    get:
+      tags:
+        - BUSINESS
+      responses:
+        '200':
+          description: user found
+ 
