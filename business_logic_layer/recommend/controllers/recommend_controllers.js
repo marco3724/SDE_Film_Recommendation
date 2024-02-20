@@ -73,7 +73,7 @@ exports.getHistory = async (request, response) => {
   });
   let result = query.data;
   if (result.status === "success" && result.isAuthenticated) {
-    // if the toke is valid and the user is authenticated, proceed querying the adapter
+    // if the token is valid and the user is authenticated, proceed querying the adapter
     let userEmail = result.plain_token.email;
     let adapter_url = `http://saved_film_adapter:${process.env.USER_ADAPTER_PORT}/retrieve-film?email=${userEmail}`;
     const getHistoryQuery = await axios.get(adapter_url);
@@ -93,3 +93,46 @@ exports.getHistory = async (request, response) => {
 
 
 };
+
+exports.saveHistory = async (request, response) => {
+  const {films, tkn} = request.body;
+
+  // Validation of token
+  const verification_url = `http://login_business:${process.env.LOGIN_BUSINESS_PORT}/login/verify-token`;
+  const verification_query = await axios.post(verification_url, {
+    tkn: tkn
+  });
+
+  let verification_result = verification_query.data;
+
+  if (verification_result.status === "success" && verification_result.isAuthenticated) {
+    let userEmail = verification_result.plain_token.email;
+
+    // Formatting films object
+    films.map(film => { 
+      return {
+        image:film.image,
+        title:film.title,
+        plot:film.plot,
+        filmLenght:film.runtime,
+        year:film.year,
+        genres:film.genres,
+        id:film.id
+        }
+      
+    })
+    
+    const adapter_url = `http://saved_film_adapter:${process.env.USER_ADAPTER_PORT}/save-film`;
+
+    const save_query = await axios.post(adapter_url, {
+      email: userEmail,
+      films: films
+    });
+
+    return response.status(200).send({message: "film salvati"});
+  }
+
+
+  
+  return response.status(200).send({message:"speriamo vada"});
+}

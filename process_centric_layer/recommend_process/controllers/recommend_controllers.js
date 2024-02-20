@@ -1,4 +1,5 @@
 const axios = require("axios")
+
 exports.getDetails = async (req, res) => {
 
   //prepare the request for the first service
@@ -26,6 +27,9 @@ exports.getDetails = async (req, res) => {
 
   }
 
+  // Automatically save the recommended films
+  let saveStatus = await saveRecommendedFilms(details, 1);
+  console.log(saveStatus);
   return res.status(200).send(details);
      
 }
@@ -55,4 +59,15 @@ exports.getHistory = async (request, response) => {
       films: res.films
     });
   }
-}
+};
+
+// Utility function to save recommended films
+async function saveRecommendedFilms(listOfFilms, token) {
+  const url = `http://recommend_business:${process.env.RECOMMEND_PORT}/recommend_film/save-history`;
+
+  const query = await axios.post(url, {
+    films: listOfFilms,
+    tkn: token
+  });
+  return query.data;
+};

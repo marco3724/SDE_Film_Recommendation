@@ -2,7 +2,8 @@ const router = require("express").Router();
 const controller = require("../controllers/recommend_controllers.js")
 // Get full recommendation film
 router.get("/", controller.getRecommendation);
-router.get("/get-history", controller.getHistory)
+router.get("/get-history", controller.getHistory);
+router.post("/save-history", controller.saveHistory);
 
 //check the status of this microservices
 router.get('/health', (req, res) => {

@@ -8,32 +8,14 @@ exports.saveFilm = async (request, response) => {
 
         const res = await film.updateOne(
              { userEmail: request.body.email}, 
-             { $push: {
-                films: {
-                    id: request.body.film.id,
-                    image: request.body.film.image,
-                    plot: request.body.film.plot,
-                    filmLenght: request.body.film.filmLenght,
-                    year: request.body.film.year,
-                    genres: request.body.film.genres,
-                    title: request.body.film.title,
-                }
-            }}
+             { $push: { films: { $each: request.body.films }}}
         );
         console.log(res);
         return response.status(200).send({ message: "found"});
     } else {
         const newFilm = new film({
             userEmail: request.body.email,
-            films: [{
-                id: request.body.film.id,
-                image: request.body.film.image,
-                plot: request.body.film.plot,
-                filmLenght: request.body.film.filmLenght,
-                year: request.body.film.year,
-                genres: request.body.film.genres,
-                title: request.body.film.title,
-            }]
+            films: request.body.films
         });
 
         try {
