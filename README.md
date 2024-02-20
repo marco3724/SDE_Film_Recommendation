@@ -5,8 +5,15 @@ The goal for this project was to provide users with a comprehensive overview of 
 ![Alt text](./docs/architecture.jpg)
 
 # How to run
-To run this application Docker and Docker compose are required.
-Set the env variable in the .env file,
+To run this application Docker and Docker compose are **required**.\
+In order to run this project you will need to obtain the API keys from **RapidAPI** and **TMDb**.\
+Then set the env variables:
+```
+JWT_SECRET="your secret key"
+X_RAPIDAPI_KEY="your secret key"
+TMDB_AUTHORIZATION="your secret key"
+``` 
+in the `.env_sample` file, and rename it to `.env`\
 Then run the following command in the root directory of this project:
 ```
 docker-compose up --build
