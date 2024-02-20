@@ -1,9 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 function History() {
+    const [films, setFilms] = useState([]);
     useEffect(() => {
         const r = async () => {
             const data = await f();
+            setFilms(data.films);
         };
         r();
     }, []);
@@ -23,7 +25,13 @@ function History() {
     }
 
     return (
-        <div>works</div>
+        <div>
+            {
+                films.map((film) => {
+                    return <p>{film.title}</p>
+                })
+            }
+        </div>
     );
 }
 
