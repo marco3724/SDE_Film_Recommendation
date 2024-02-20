@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react";
-
+import { PreviewFilm } from "../../components/PreviewFilm/PreviewFilm";
+import styles from './history.module.scss';
 function History() {
     const [films, setFilms] = useState([]);
     useEffect(() => {
-        const r = async () => {
-            const data = await f();
+        const call = async () => {
+            const data = await getHistory();
             setFilms(data.films);
         };
-        r();
+        call();
     }, []);
 
-    const f = async () => {
+    const getHistory = async () => {
         try {
             const response = await fetch(`http://localhost:8006/recommend_film/get-history`, {
                 method: 'GET',
@@ -25,10 +26,10 @@ function History() {
     }
 
     return (
-        <div>
+        <div className={styles.container}>
             {
                 films.map((film) => {
-                    return <p>{film.title}</p>
+                    return <PreviewFilm film={film} key={film.id} />
                 })
             }
         </div>

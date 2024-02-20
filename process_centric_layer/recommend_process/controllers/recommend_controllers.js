@@ -14,7 +14,6 @@ exports.getDetails = async (req, res) => {
 
   try {
     const response = await axios.request(options);
-    console.log(response.status)
     details = response.data
   } catch (error) {
       response = {
@@ -28,18 +27,20 @@ exports.getDetails = async (req, res) => {
   }
 
   // Automatically save the recommended films
+  if(token){  
   try {
-    let saveStatus = await saveRecommendedFilms(details, token);
-    return res.status(200).send(details);
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({
-      status: "error",
-      code: 500,
-      message: "Error saving recommended films"
-    });
-  }
-  
+      let saveStatus = await saveRecommendedFilms(details, token);
+      return res.status(200).send(details);
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({
+        status: "error",
+        code: 500,
+        message: "Error saving recommended films"
+      });
+    }
+  } 
+return res.status(200).send(details);
      
 }
 
@@ -62,7 +63,6 @@ exports.getHistory = async (request, response) => {
 
     const req = await axios.request(queryOptions);
     let res = req.data;
-    console.log(res);
     return response.status(200).json({
       message: "correct",
       films: res.films
