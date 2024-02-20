@@ -17,6 +17,10 @@ exports.getReviews = async (req, res) => {
   try {
     const response = await axios.request(options)
     //standardize the data
+    
+    if(response.data.totalReviews===0){
+      return res.status(200).send([]);
+    }
     const reviews =response.data?.reviews.map(rev=>{
       return {
         author: rev.author.displayName,
