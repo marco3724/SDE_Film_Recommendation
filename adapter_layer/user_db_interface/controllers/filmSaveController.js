@@ -1,21 +1,31 @@
 const film = require("../models/savedFilm.js");
 
 exports.saveFilm = async (request, response) => {
+    const {email, films} = request.body;
 
-    const findUser = await film.find({ userEmail: request.body.email }).exec();
+    const findUser = await film.find({ userEmail: email }).exec();
     
     if (!findUser.length == 0) {
+        let aux_film = [];
 
+        for (let i = 0; i < films.length; i++) {
+            if (!findUser[0].films.some(film => film.id == films[i].id)) {
+                aux_film.push(films[i]);
+            }
+        }
+        
         const res = await film.updateOne(
-             { userEmail: request.body.email}, 
-             { $push: { films: { $each: request.body.films }}}
+             { userEmail: email}, 
+             { $push: { films: { $each: aux_film }}}
         );
-        console.log(res);
-        return response.status(200).send({ message: "found"});
+        return response.status(200).json({ 
+            status: "success",
+            message: "New films added"
+        });
     } else {
         const newFilm = new film({
-            userEmail: request.body.email,
-            films: request.body.films
+            userEmail: email,
+            films: films
         });
 
         try {

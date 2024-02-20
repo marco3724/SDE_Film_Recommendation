@@ -155,7 +155,7 @@ exports.saveHistory = async (request, response) => {
     }
 
     if (save_query_result.status === "success") {
-      return response.status(400).json({
+      return response.status(200).json({
         status: "success",
         message:"Films saved correctly"
       });
