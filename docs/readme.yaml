@@ -14,7 +14,7 @@ paths:
   /imdb_film/details:
     get:
       tags:
-        - imdb detail api
+        - IMDb Detail API
       summary: get the details of a film given the film id
       description: get the details of a film given the film id
       parameters:
@@ -36,7 +36,7 @@ paths:
   /imdb_film/autocomplete:
     get:
       tags:
-        - imdb detail api
+        - IMDb Detail API
       summary: give the film that start with the given term
       description: give the film that start with the given term
       parameters:
@@ -58,7 +58,7 @@ paths:
   /imdb_film/recommend_popular_film:
     get:
       tags:
-        - imdb detail api
+        - IMDb Detail API
       summary: recommend populare film by genre
       description: recommend populare film by genre
       parameters:
@@ -80,7 +80,7 @@ paths:
   /imdb_film/health:
     get:
       tags:
-        - imdb detail api
+        - IMDb Detail API
       summary: check the status of the microservice
       description: check the status of the microservice
       responses:
@@ -94,7 +94,7 @@ paths:
   /imdb_film_review/:
     get:
       tags:
-        - imdb review api
+        - IMDb Review API
       summary: get the review
       description: get the review of thefilm by its id
       parameters:
@@ -116,7 +116,7 @@ paths:
   /imdb_film_review/health:
     get:
       tags:
-        - imdb review api
+        - IMDb Review API
       summary: check the status of the microservice
       description: check the status of the microservice
       responses:
@@ -129,7 +129,7 @@ paths:
   /tmdb_film/details:
     get:
       tags:
-        - tmdb detail api
+        - TMDb Detail API
       summary: get the details of a film given the film id
       description: get the details of a film given the film id
       parameters:
@@ -151,7 +151,7 @@ paths:
   /tmdb_film/health:
     get:
       tags:
-        - tmdb detail api
+        - TMDb Detail API
       summary: check the status of the microservice
       description: check the status of the microservice
       responses:
@@ -164,7 +164,7 @@ paths:
   /tmdb_film_review/:
     get:
       tags:
-        - tmdb review api
+        - TMDb Review API
       summary: get the review
       description: get the review of thefilm by its id
       parameters:
@@ -186,7 +186,7 @@ paths:
   /tmdb_film_review/health:
     get:
       tags:
-        - tmdb review api
+        - TMDb Review API
       summary: check the status of the microservice
       description: check the status of the microservice
       responses:
@@ -199,9 +199,9 @@ paths:
   /streaming_availability/:
     get:
       tags:
-        - streaming availability
-      summary: getthe vailability of a film from different services
-      description: get the review of thefilm by its id
+        - Streaming Availability
+      summary: Get the vailability of a film from different services
+      description: Get the review of thefilm by its id
       parameters:
         - name: filmID
           in: query
@@ -221,8 +221,8 @@ paths:
   /streaming_availability/health:
     get:
       tags:
-        - streaming availability
-      summary: check the status of the microservice
+        - Streaming Availability
+      summary: Check the status of the microservice
       description: check the status of the microservice
       responses:
         '200':
@@ -483,7 +483,7 @@ paths:
   /full_details_film/:
     get:
       tags:
-        - Detail Business layer
+        - Detail Business Layer
       summary: Retrieve films details from all sources
       description:  Retrieve films details from all sources
       parameters:
@@ -505,7 +505,7 @@ paths:
   /full_details_film/health/:
     get:
       tags:
-        - Detail Business layer
+        - Detail Business Layer
       summary: check the status of the microservice
       description: check the status of the microservice
       responses:
@@ -516,7 +516,7 @@ paths:
   /full_review_film/:
     get:
       tags:
-        - Review Business layer
+        - Review Business Layer
       summary: Retrieve films review from all sources
       description:  Retrieve films review from all sources
       parameters:
@@ -538,7 +538,7 @@ paths:
   /full_review_film/health/:
     get:
       tags:
-        - Review Business layer
+        - Review Business Layer
       summary: check the status of the microservice
       description: check the status of the microservice
       responses:
@@ -549,7 +549,7 @@ paths:
   /available_streaming_services/:
     get:
       tags:
-        - available streaming services Business layer
+        - Streaming Availability Business Layer
       summary: Retrieve all available service from all sources
       description: Retrieve all available service from all sources
       parameters:
@@ -571,7 +571,7 @@ paths:
   /available_streaming_services/health/:
     get:
       tags:
-        - available streaming services Business layer
+        - Streaming Availability Business Layer
       summary: check the status of the microservice
       description: check the status of the microservice
       responses:
@@ -721,7 +721,7 @@ paths:
   /full_overview_film/:
     get:
       tags:
-        - full overview film service
+        - Film Overview Service
       summary: Retrieve all available detail review and platform availability from all sources
       description: Retrieve all available detail review and platform availability from all sources
       parameters:
@@ -743,7 +743,7 @@ paths:
   /full_overview_film/health/:
     get:
       tags:
-        - full overview film service
+        - Film Overview Service
       summary: check the status of the microservice
       description: check the status of the microservice
       responses:
