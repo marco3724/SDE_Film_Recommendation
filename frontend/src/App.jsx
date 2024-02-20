@@ -33,9 +33,30 @@ const router = createBrowserRouter([
   },
   {
     path: "/history",
-    element: <History />
+    element: <History />,
+    canActivate: () => isAuthenticatedFunction()
   },
 ]);
+
+const isAuthenticatedFunction = async () => {
+  try {
+    const response = await fetch(`http://localhost:8003/login/isAuthenticated`,{
+      method: 'POST',
+      credentials: 'include'
+      
+    });
+
+    if (!response.ok) {
+      return false
+    }
+    const data = await response.json();
+    return data.isAuthenticated
+
+  } catch (error) {
+    console.error('Fetch error:', error);
+    return false
+  }
+};
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -47,25 +68,7 @@ function App() {
     checkAuth();
   }
   , []);
-  const isAuthenticatedFunction = async () => {
-    try {
-      const response = await fetch(`http://localhost:8003/login/isAuthenticated`,{
-        method: 'POST',
-        credentials: 'include'
-        
-      });
 
-      if (!response.ok) {
-        return false
-      }
-      const data = await response.json();
-      return data.isAuthenticated
-
-    } catch (error) {
-      console.error('Fetch error:', error);
-      return false
-    }
-  };
   return (
     <div className="App">
       <header className="App-header">
