@@ -2,7 +2,7 @@ import { useEffect,useState } from "react";
 import { useParams } from 'react-router-dom';
 import { PreviewFilm } from "../../components/PreviewFilm/PreviewFilm";
 import styles from './recommend.module.scss';
-
+import BounceLoader from "react-spinners/BounceLoader";
 function Recommend() {
   const {genre} = useParams();
   const [film, setFilm] = useState(null);
@@ -28,7 +28,7 @@ function Recommend() {
   } 
   , []);
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <BounceLoader size={'250px'} className={styles.bounce}color="#1e90ff" />;
 }
   return (
     <div className={styles.container}>

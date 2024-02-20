@@ -1,11 +1,12 @@
 import { useState,useEffect} from 'react';
 import styles from './searchbar.module.scss';
 import {FaSearch} from 'react-icons/fa'
+import { BeatLoader } from 'react-spinners';
 function SearchBar() {
   const [search, setSearch] = useState('')
   const [data, setData] = useState([]);
   const [debouncedValue, setDebouncedValue] = useState('');
-
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const handler = setTimeout(() => {
       setDebouncedValue(search);
@@ -30,10 +31,12 @@ function SearchBar() {
         }
         const data = await response.json();
         setData(data);
+        setIsLoading(false);
       } catch (error) {
         console.error('Fetch error:', error);
       }
     };
+
   return (
     <>
       <div className={styles.searchbar}>
@@ -41,13 +44,17 @@ function SearchBar() {
           type="text"
           placeholder='Search for a movie...'
           value={search}
+          onKeyDown={()=>{
+            setData([])
+            setIsLoading(true)}}
           onChange={(e) => {
               setSearch(e.target.value)
           }}
         />
-        <FaSearch className={styles.icon}/>
+        <FaSearch color='#1e90ff' className={styles.icon}/>
       </div>
-      <div className={data.length>0 ?styles.styledItems:styles.noHeight}>
+      <div className={styles.styledItems}>
+     { search.length>0 && isLoading && <BeatLoader color='#1e90ff' />}
       {data.map((item, index) => {
         return <a className={styles.item} href={`/film/${item.id}`} key={index} >{item.title}</a>
       })}

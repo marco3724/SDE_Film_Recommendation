@@ -1,3 +1,7 @@
+.bounce{
+    max-width: 75%;
+    margin: auto;
+}
 .container{
     max-width: 75%;
     margin: auto;
@@ -129,4 +133,13 @@
 }
 .details{
     position: relative;
+    min-width: 600px;
+}
+.noReview{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    font-size: 2rem;
+    font-weight: 600;
 }
