@@ -20,9 +20,15 @@ exports.saveFilm = async (request, response) => {
 
         try {
             const insertResponse = await newFilm.save();
-            return response.status(200).send({message:"Film saved succesfully"});
+            return response.status(200).json({
+                status: "success",
+                message:"Film saved succesfully"
+            });
         } catch (error) {
-            return response.status(500).send({ message: "Something went wrong"});
+            return response.status(500).json({
+                status: "unsuccess",
+                message: "Something went wrong"
+            });
         }
     }
 

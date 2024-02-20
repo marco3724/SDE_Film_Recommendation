@@ -28,9 +28,18 @@ exports.getDetails = async (req, res) => {
   }
 
   // Automatically save the recommended films
-  let saveStatus = await saveRecommendedFilms(details, 1);
-  console.log(saveStatus);
-  return res.status(200).send(details);
+  try {
+    let saveStatus = await saveRecommendedFilms(details, token);
+    return res.status(200).send(details);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      status: "error",
+      code: 500,
+      message: "Error saving recommended films"
+    });
+  }
+  
      
 }
 
@@ -65,9 +74,13 @@ exports.getHistory = async (request, response) => {
 async function saveRecommendedFilms(listOfFilms, token) {
   const url = `http://recommend_business:${process.env.RECOMMEND_PORT}/recommend_film/save-history`;
 
-  const query = await axios.post(url, {
-    films: listOfFilms,
-    tkn: token
-  });
-  return query.data;
+  try {
+    const query = await axios.post(url, {
+      films: listOfFilms,
+      tkn: token
+    });
+    return query.data;
+  } catch (error) {
+    throw new error;
+  }
 };

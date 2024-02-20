@@ -97,13 +97,29 @@ exports.getHistory = async (request, response) => {
 exports.saveHistory = async (request, response) => {
   const {films, tkn} = request.body;
 
-  // Validation of token
-  const verification_url = `http://login_business:${process.env.LOGIN_BUSINESS_PORT}/login/verify-token`;
-  const verification_query = await axios.post(verification_url, {
-    tkn: tkn
-  });
+  if (!films || !tkn) {
+    return response.status(400).json({
+      status: "unsuccess",
+      message: "Empty films or token fields is not allowed"
+    });
+  }
 
-  let verification_result = verification_query.data;
+  // Validation of token
+  let verification_result;
+  const verification_url = `http://login_business:${process.env.LOGIN_BUSINESS_PORT}/login/verify-token`;
+  try {
+    const verification_query = await axios.post(verification_url, {
+      tkn: tkn
+    });
+    
+    verification_result = verification_query.data;
+  } catch (error) {
+    return response.status(400).json({
+      status: "unsuccess",
+      message: "Something went wrong during token validation"
+    });
+  }
+
 
   if (verification_result.status === "success" && verification_result.isAuthenticated) {
     let userEmail = verification_result.plain_token.email;
@@ -123,16 +139,41 @@ exports.saveHistory = async (request, response) => {
     })
     
     const adapter_url = `http://saved_film_adapter:${process.env.USER_ADAPTER_PORT}/save-film`;
+    let save_query_result;
+    try {
+      const save_query = await axios.post(adapter_url, {
+        email: userEmail,
+        films: films
+      });
+      save_query_result = save_query.data;
 
-    const save_query = await axios.post(adapter_url, {
-      email: userEmail,
-      films: films
+    } catch (error) {
+      return response.status(400).json({
+        status: "unsuccess",
+        message: "Something went wrong while saving films"
+      });
+    }
+
+    if (save_query_result.status === "success") {
+      return response.status(400).json({
+        status: "success",
+        message:"Films saved correctly"
+      });
+    } else {
+      return response.status(400).json({
+        status: "unsuccess",
+        message:"Films not saved"
+      });
+    }
+
+  } else {
+    return response.status(400).json({
+      status: "unsuccess",
+      message:"You are not authenticated"
     });
-
-    return response.status(200).send({message: "film salvati"});
   }
 
 
   
-  return response.status(200).send({message:"speriamo vada"});
+  
 }
