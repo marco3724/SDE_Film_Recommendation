@@ -1,6 +1,10 @@
 const axios = require("axios")
 exports.getDetails = async (req, res) => {
   const filmID = req.query.filmID
+  
+  if(filmID===undefined)
+    return res.status(400).send({status: "error", message: "No filmID provided"});
+
   //make the request
   const options = {
     method: 'GET',
@@ -50,6 +54,9 @@ exports.getDetails = async (req, res) => {
 exports.getAutocomplete = async (req, res) => {
   //make the request
   const searchTerm = req.query.name
+  
+  if(searchTerm===undefined)
+    return res.status(400).send({status: "error", message: "No searchTerm provided"});
   const options = {
     method: 'GET',
     url: 'https://imdb8.p.rapidapi.com/auto-complete',
@@ -87,6 +94,9 @@ exports.getAutocomplete = async (req, res) => {
 exports.getPopularFilmByGenres = async (req, res) => {
   //make the request
   const genre = req.query.genre
+  if(genre===undefined)
+    return res.status(400).send({status: "error", message: "No genre provided"});
+  
   const options = {
     method: 'GET',
     url: 'https://imdb8.p.rapidapi.com/title/v2/get-popular-movies-by-genre',

@@ -1,6 +1,10 @@
 const axios = require("axios")
 exports.getReviews = async (req, res) => {
   const filmID = req.query.filmID
+
+  if(filmID===undefined)
+    return res.status(400).send({status: "error", message: "No filmID provided"});
+  
   //send the request
   const options = {
     method: 'GET',
