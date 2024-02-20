@@ -75,7 +75,6 @@ function App() {
         <div className='logo'><a href={`/`}>MOVIE</a></div>
         <div className='menu'>
           <div className='item'><a href={`/search`}>Search</a></div>
-          <div className='item'><a href={`/`}>Recommend</a></div>
           <div className='item'>{
           isAuthenticated?
             <a href={`/history`}>History</a> 
