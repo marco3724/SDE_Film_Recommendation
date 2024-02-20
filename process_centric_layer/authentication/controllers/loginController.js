@@ -5,14 +5,6 @@ const VERIFICATION_TOKEN_ENDPOINT = LOGIN_BUSINESS_ENDPOINT + "/verify-token";
 exports.loginProcedure = async (request, response) => {
     const { email, password } = request.body;
 
-    // check if email and password are there
-    if (!email || !password) {
-        return response.status(400).json({
-            status: "unsuccess",
-            message: "Email and password are required!"
-        });
-    }
-
     let userData = {
         email: email,
         password: password
@@ -43,8 +35,9 @@ exports.loginProcedure = async (request, response) => {
             message: "Successfull login"
         });
     } else {
-        return response.status(400).send({
-            message: "Oops something went wrong :(, during the login"
+        return response.status(400).json({
+            status: "unsuccess",
+            message: result.message
         });
     }
 };
