@@ -1,5 +1,13 @@
 version: "3.8"
 services:
+  # Frontend
+  frontend:
+    build: ./frontend
+    restart: always
+    ports:
+      - ${FRONTED_PORT}:${FRONTED_PORT}
+    expose:
+      - ${FRONTED_PORT}
 
   # Process Layer
   authentication:
