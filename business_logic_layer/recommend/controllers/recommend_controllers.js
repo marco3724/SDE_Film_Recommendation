@@ -167,9 +167,9 @@ exports.saveHistory = async (request, response) => {
     }
 
   } else {
-    return response.status(400).json({
-      status: "unsuccess",
-      message:"You are not authenticated"
+    return response.status(200).json({
+      status: "success",
+      message:"You are not authenticated, film not saved"
     });
   }
 
