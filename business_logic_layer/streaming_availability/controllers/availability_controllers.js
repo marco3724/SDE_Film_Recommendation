@@ -3,6 +3,12 @@ exports.getDetails = async (req, res) => {
 
  let availability = {}
   const filmID = req.query.filmID
+  if(!filmID) 
+    return res.status(400).send({ 
+      "status": "error",
+      "code": 400,
+      "message": "filmID is required"
+    });
   //fetching the detail from the first provider
   let port = process.env.STREAMING_AVAILABILITY_PORT || 3005;
   let options = {
@@ -21,7 +27,6 @@ exports.getDetails = async (req, res) => {
         "message": "Error in fetching data from imdb adapter layer"
       }
       console.log(error)
-      //return res.status(500).send(response);
 
   }
   

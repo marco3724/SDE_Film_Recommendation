@@ -27,10 +27,11 @@ function History() {
 
     return (
         <div className={styles.container}>
-            {
+            {   films ?
                 films.map((film) => {
                     return <PreviewFilm film={film} key={film.id} />
-                })
+                }):
+                <h1> No history found</h1>
             }
         </div>
     );

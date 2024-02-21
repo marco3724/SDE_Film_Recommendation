@@ -36,6 +36,10 @@ services:
       - ${FULL_OVERVIEW_PORT}:${FULL_OVERVIEW_PORT}
     expose:
       - ${FULL_OVERVIEW_PORT}
+    depends_on:
+      - full_detail_business
+      - full_review_business
+      - streaming_avaibility_business
 
   recommend:
     build: ./process_centric_layer/recommend_process
@@ -47,6 +51,9 @@ services:
       - ${RECOMMEND_PROCESS_PORT}:${RECOMMEND_PROCESS_PORT}
     expose:
       - ${RECOMMEND_PROCESS_PORT}
+    depends_on:
+      - recommend_business
+
   # Business Layer
   login_business:
     build: ./business_logic_layer/login
@@ -73,6 +80,9 @@ services:
       - ${FULL_DETAIL_PORT}:${FULL_DETAIL_PORT}
     expose:
       - ${FULL_DETAIL_PORT}
+    depends_on:
+      - imdb_detail_adapter
+      - tmdb_detail_adapter
   full_review_business:
     build: ./business_logic_layer/reviews
     restart: always
@@ -84,6 +94,9 @@ services:
       - ${FULL_REVIEW_PORT}:${FULL_REVIEW_PORT}
     expose:
       - ${FULL_REVIEW_PORT}
+    depends_on:
+      - imdb_review_adapter
+      - tmdb_review_adapter
 
   registration_business:
     build: ./business_logic_layer/registration
